@@ -18,6 +18,14 @@ class AuthenticationPage extends StatefulWidget {
 class _AuthenticationPageState extends State<AuthenticationPage> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  late bool _passwordValidate;
+
+  @override
+  void initState() {
+    _passwordValidate = true;
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -49,6 +57,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                 children: [
                   TextField(
                     controller: _email,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15)),
@@ -58,10 +67,29 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     padding: const EdgeInsets.only(top: 5.0),
                     child: TextField(
                       controller: _password,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: _passwordValidate,
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          hintText: passwordHint),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        hintText: passwordHint,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _passwordValidate
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            size: 18,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _passwordValidate =
+                              !_passwordValidate;
+                            });
+                          },
+                          color: Colors.grey,
+                        ),
+                      ),
+
                     ),
                   ),
                   Padding(
