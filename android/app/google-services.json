@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "89244440005",
+    "firebase_url": "https://internet-magazine-39743-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "internet-magazine-39743",
+    "storage_bucket": "internet-magazine-39743.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89244440005:android:65cf6709b42a2447fb27ac",
+        "android_client_info": {
+          "package_name": "com.av.internet_magazine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89244440005-2ng1osjadt4lsqjfuqtqcmv8tlloeu3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFbzDuNU-74ruFe95yE20wUE2BOJqqKEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89244440005-2ng1osjadt4lsqjfuqtqcmv8tlloeu3p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "89244440005-5r1c0caholk0dj9n5o815eu9e05trg7s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.av.internetMagazine"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
