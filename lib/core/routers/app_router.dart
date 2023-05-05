@@ -16,7 +16,7 @@ class AppRouter extends $AppRouter {
           children: [
             AutoRoute(
               path: '',
-              page: AuthenticateRoute.page,
+              page: AuthenticationRoute.page,
             ),
             AutoRoute(
               page: AuthorizationRoute.page,
@@ -24,6 +24,10 @@ class AppRouter extends $AppRouter {
             ),
             RedirectRoute(path: "*", redirectTo: ""),
           ],
-        )
+        ),
+        AutoRoute(
+          path: "/main",
+          page: MainCardRoute.page,
+        ),
       ];
 }

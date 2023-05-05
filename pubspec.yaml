@@ -43,6 +43,12 @@ dependencies:
   firebase_auth: ^4.4.2
   firebase_database: ^10.1.1
   hive_flutter: ^1.1.0
+  freezed_annotation: ^2.2.0
+  dio: ^5.1.1
+  json_annotation: ^4.8.0
+  json_serializable: ^6.6.1
+  equatable: ^2.0.5
+  get_it: ^7.4.1
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +63,7 @@ dev_dependencies:
   auto_route_generator: ^6.0.0
   build_runner: ^2.3.3
   hive_generator: ^2.0.0
+  freezed: ^2.3.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
