@@ -1,5 +1,4 @@
 import 'package:auto_route/annotations.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -13,7 +12,11 @@ class MainCardPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          Center(child: Text("Hello this is main page")),
+          Center(
+            child: Text(
+              "Hello this is main page",
+            ),
+          ),
         ],
       ),
     );

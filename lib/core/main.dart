@@ -6,12 +6,7 @@ import 'package:internet_magazine/core/application.dart';
 import 'firebase_options.dart';
 import 'injection.dart' as inj;
 
-// import 'package:firebase_core/firebase_core.dart';
-// import 'firebase_options.dart';
 
-
-// FirebaseApp.instance;
-// DefaultFirebaseOptions.currentPlatform;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

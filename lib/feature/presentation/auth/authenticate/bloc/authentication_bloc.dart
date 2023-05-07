@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -21,36 +20,38 @@ class AuthenticationBloc
 
   AuthenticationBloc(this._iAuthRepositoryDomain)
       : super(AuthenticationInitial()) {
-    on<GetAuthentication>((event, emit) async {
-      final PrimaryUserModelDomain userModel =
-          await _iAuthRepositoryDomain.authentication(
-        email: event.email,
-        password: event.password,
-      );
-      final Box<UserModelDomain> userBox =
-          await Hive.openBox<UserModelDomain>("User");
-      userModel.maybeWhen(
-        success: (success) {
-          UserModelDomain user = success;
-          dev.log(
-              name: "authentication bloc",
-              "${user.name} ${user.role} ${user.login} ${user.id}");
-          // userBox.put('user_data', user);
-          emit(AuthenticationDownload());
-        },
-        error: (error) {
-          emit(
-            AuthenticationError(message: "${error.message} код:${error.code}"),
-          );
-        },
-        orElse: () {
-          emit(
-            const AuthenticationError(
-              message: "$errorMessageBloc код: 418",
-            ),
-          );
-        },
-      );
-    });
+    on<GetAuthentication>(
+      (event, emit) async {
+        final PrimaryUserModelDomain userModel =
+            await _iAuthRepositoryDomain.authentication(
+          email: event.email,
+          password: event.password,
+        );
+        final Box<UserModelDomain> userBox =
+            await Hive.openBox<UserModelDomain>("User");
+        userModel.maybeWhen(
+          success: (success) {
+            UserModelDomain user = success;
+            dev.log(
+                name: "authentication bloc",
+                "${user.name} ${user.role} ${user.login} ${user.id}");
+            emit(AuthenticationDownload());
+          },
+          error: (error) {
+            emit(
+              AuthenticationError(
+                  message: "${error.message} код:${error.code}"),
+            );
+          },
+          orElse: () {
+            emit(
+              const AuthenticationError(
+                message: "$errorMessageBloc код: 418",
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

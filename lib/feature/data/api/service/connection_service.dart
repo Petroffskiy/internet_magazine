@@ -1,10 +1,10 @@
-import 'package:dio/dio.dart';
+// import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:internet_magazine/feature/data/api/model/user/user_model.dart';
 
 import '../model/error/error_model.dart';
 import '../model/user/primary_user_model.dart';
-import 'dio/dio_client.dart';
+// import 'dio/dio_client.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -24,7 +24,6 @@ class ConnectionService {
 
     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
-    // if (userCredential.user! ) {
       String uid = userCredential.user!.uid;
       if (uid.isNotEmpty) {
         print("success");

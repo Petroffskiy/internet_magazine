@@ -1,9 +1,8 @@
 const String emailHint = "Email";
 const String passwordHint = "Password";
-const String emailValidator = "Почта точно правильная?";
-const String passwordValidator = "Пароль точно правильная?";
 const String errorEmailHint = "Некорректный логин";
 const String errorPasswordHint = "Некорректный пароль";
+const String errorNameHint = "Тебя как звать-то?";
 const String namedHint = "Билли";
 const String buttonInput = "Войти";
 const String buttonRegistration = "Зарегистрироваться";

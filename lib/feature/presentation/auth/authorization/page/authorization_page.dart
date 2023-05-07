@@ -1,38 +1,22 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../assets/colors/colors.dart';
-import '../../../../../assets/project_strings.dart';
-import '../../../../../core/routers/app_router.gr.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_magazine/assets/colors/colors.dart';
+import 'package:internet_magazine/assets/project_strings.dart';
+import 'package:internet_magazine/feature/presentation/auth/bloc/validate/validate_bloc.dart';
+import 'package:internet_magazine/feature/presentation/widgets/extentions_string.dart';
 
 @RoutePage()
-class AuthorizationPage extends StatefulWidget {
-  const AuthorizationPage({Key? key}) : super(key: key);
-
-  @override
-  State<AuthorizationPage> createState() => _AuthorizationPageState();
-}
-
-class _AuthorizationPageState extends State<AuthorizationPage> {
+class AuthorizationPage extends StatelessWidget {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _name = TextEditingController();
-  late bool _passwordValidate;
+  bool _passwordVisible = false;
+  bool _passwordValidate = false;
+  bool _emailValidate = false;
+  bool _nameValidate = false;
 
-  @override
-  void initState() {
-    _passwordValidate = true;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    _name.dispose();
-    super.dispose();
-  }
+  AuthorizationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,58 +39,88 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextField(
-                    controller: _name,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      hintText: namedHint,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0),
-                    child: TextField(
-                      controller: _email,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
+                  BlocBuilder<ValidateBloc, bool>(
+                    builder: (context, state) {
+                      return TextField(
+                        controller: _name,
+                        decoration: InputDecoration(
+                          errorText: state ? null : errorNameHint,
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          hintText: emailHint),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          hintText: namedHint,
+                        ),
+                      );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: BlocBuilder<ValidateBloc, bool>(
+                      builder: (context, state) {
+                        return TextField(
+                          controller: _email,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                              errorText: state ? null : errorEmailHint,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              hintText: emailHint),
+                        );
+                      },
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0),
-                    child: TextField(
-                      controller: _password,
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: _passwordValidate,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        hintText: passwordHint,
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _passwordValidate
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            size: 18,
+                    child: BlocBuilder<ValidateBloc, bool>(
+                      builder: (context, state) {
+                        return TextField(
+                          controller: _password,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: _passwordVisible,
+                          decoration: InputDecoration(
+                            errorText: state ? null : errorPasswordHint,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            hintText: passwordHint,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _passwordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                size: 18,
+                              ),
+                              onPressed: () {
+                                _passwordVisible = !_passwordVisible;
+                              },
+                              color: Colors.grey,
+                            ),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              _passwordValidate =
-                              !_passwordValidate;
-                            });
-                          },
-                          color: Colors.grey,
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        if (_email.text.isNotEmpty &&
+                            _password.text.isNotEmpty &&
+                            _name.text.isNotEmpty) {
+                          _passwordValidate = _password.text.isValidPassword();
+                          _emailValidate = _email.text.isValidEmail();
+
+                          if (_emailValidate &&
+                              _passwordValidate &&
+                              _nameValidate) {
+                            //TODO: here go to new page
+                            context.read<ValidateBloc>().add(ValidateTrue());
+                          } else {
+                            context.read<ValidateBloc>().add(ValidateFalse());
+                          }
+                        } else {
+                          context.read<ValidateBloc>().add(ValidateFalse());
+                        }
+                      },
                       child: Container(
                         height: 45,
                         width: MediaQuery.of(context).size.width,
