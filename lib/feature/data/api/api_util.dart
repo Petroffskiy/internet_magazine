@@ -16,4 +16,14 @@ class ApiUtil {
         await _connectionService.getData(email: email, password: password);
     return UserMapper.fromJson(result);
   }
+
+  Future<PrimaryUserModelDomain> authorization({
+    required String email,
+    required String password,
+    required String name,
+  }) async {
+    final result = await _connectionService.getAuthorization(
+        name: name, password: password, email: email);
+    return UserMapper.fromJson(result);
+  }
 }

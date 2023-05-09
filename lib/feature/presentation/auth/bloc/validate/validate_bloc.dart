@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-part 'validate_event.dart';
+part 'validate_state.dart';
 
 class ValidateBloc extends Bloc<ValidateEvent, bool> {
   ValidateBloc() : super(true) {

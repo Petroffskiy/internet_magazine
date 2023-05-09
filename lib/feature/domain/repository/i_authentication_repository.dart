@@ -5,4 +5,9 @@ abstract class IAuthRepositoryDomain {
     required String email,
     required String password,
   });
+  Future<PrimaryUserModelDomain> authorization({
+    required String email,
+    required String password,
+    required String name,
+  });
 }

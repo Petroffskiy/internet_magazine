@@ -10,11 +10,11 @@ void widgetSnackBar({
 }) {
   text ??= error;
   final snackBar = SnackBar(
-    duration:  Duration(milliseconds: durMillisec ?? 700),
+    duration: Duration(milliseconds: durMillisec ?? 1500),
     content: Text(
       text,
       style:
-      Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),
+          Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),
     ),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(

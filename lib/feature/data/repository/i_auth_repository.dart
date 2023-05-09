@@ -12,4 +12,10 @@ class IAuthRepository extends IAuthRepositoryDomain {
       {required String email, required String password}) {
     return _apiUtil.getData(email: email, password: password);
   }
+
+  @override
+  Future<PrimaryUserModelDomain> authorization(
+      {required String email, required String password, required String name}) {
+    return _apiUtil.authorization(email: email, password: password, name: name);
+  }
 }

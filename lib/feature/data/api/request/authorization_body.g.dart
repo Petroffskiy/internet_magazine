@@ -1,24 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_model.dart';
+part of 'authorization_body.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
+_$_AuthorizationBody _$$_AuthorizationBodyFromJson(Map<String, dynamic> json) =>
+    _$_AuthorizationBody(
       id: json['id'] as String,
       name: json['name'] as String,
-      login: json['login'] as String,
       password: json['password'] as String,
-      role: json['role'] as bool,
+      login: json['login'] as String,
+      role: json['role'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
+Map<String, dynamic> _$$_AuthorizationBodyToJson(
+        _$_AuthorizationBody instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'login': instance.login,
       'password': instance.password,
+      'login': instance.login,
       'role': instance.role,
     };

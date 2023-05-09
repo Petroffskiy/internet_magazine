@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_magazine/feature/presentation/auth/bloc/password_visible/password_visible_bloc.dart';
 import 'package:internet_magazine/feature/presentation/auth/bloc/validate/validate_bloc.dart';
 import 'package:internet_magazine/feature/presentation/widgets/extentions_string.dart';
 
@@ -15,7 +16,6 @@ import '../bloc/authentication_bloc.dart';
 class AuthenticationPage extends StatelessWidget {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
-  bool _passwordVisible = false;
   bool _emailValidate = false;
   bool _passwordValidate = false;
   AuthenticationPage({super.key});
@@ -57,30 +57,42 @@ class AuthenticationPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0),
-                    child: BlocBuilder<ValidateBloc, bool>(
+                    child: BlocBuilder<PasswordVisibleBloc, bool>(
                       builder: (context, state) {
-                        return TextFormField(
-                          controller: _password,
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: _passwordVisible,
-                          decoration: InputDecoration(
-                            errorText: state ? null : errorPasswordHint,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            hintText: passwordHint,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                size: 18,
+                        return BlocBuilder<ValidateBloc, bool>(
+                          builder: (context, state) {
+                            return TextField(
+                              controller: _password,
+                              keyboardType: TextInputType.visiblePassword,
+                              obscureText:
+                                  context.read<PasswordVisibleBloc>().state,
+                              decoration: InputDecoration(
+                                errorText: state ? null : errorPasswordHint,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                hintText: passwordHint,
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    context.read<PasswordVisibleBloc>().state
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    size: 18,
+                                  ),
+                                  onPressed: () {
+                                    context.read<PasswordVisibleBloc>().state ==
+                                            false
+                                        ? context
+                                            .read<PasswordVisibleBloc>()
+                                            .add(PasswordTrue())
+                                        : context
+                                            .read<PasswordVisibleBloc>()
+                                            .add(PasswordFalse());
+                                  },
+                                  color: Colors.grey,
+                                ),
                               ),
-                              onPressed: () {
-                                _passwordVisible = !_passwordVisible;
-                              },
-                              color: Colors.grey,
-                            ),
-                          ),
+                            );
+                          },
                         );
                       },
                     ),
@@ -104,14 +116,13 @@ class AuthenticationPage extends StatelessWidget {
                                 _password.text.isValidPassword();
                             _emailValidate = _email.text.isValidEmail();
                             if (_emailValidate && _passwordValidate) {
-                              BlocProvider.of<ValidateBloc>(context)
-                                  .add(ValidateTrue());
-                              BlocProvider.of<AuthenticationBloc>(context).add(
-                                GetAuthentication(
-                                  password: _password.text,
-                                  email: _email.text,
-                                ),
-                              );
+                              context.read<ValidateBloc>().add(ValidateTrue());
+                              context.read<AuthenticationBloc>().add(
+                                    GetAuthentication(
+                                      email: _email.text,
+                                      password: _password.text,
+                                    ),
+                                  );
                             } else {
                               context.read<ValidateBloc>().add(ValidateFalse());
                             }
