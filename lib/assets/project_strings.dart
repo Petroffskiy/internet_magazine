@@ -9,7 +9,7 @@ const String buttonRegistration = "Зарегистрироваться";
 const String registrationButton = "Зарегистрироваться";
 const String authenticateButton = "Обратно ко входу";
 
-//error strings
+/// error strings
 const String errorMessageMapper = "данные потерялись";
 const int errorCodeMapper = 404;
 const String errorMessage404 = "Данные отсутствуют";
@@ -25,3 +25,8 @@ const String errorAuthorizationUser =
 
 const String errorMessageBloc = "Уоу, данные украли инопришиленцы...";
 const int errorBloc = 418;
+
+///Bottom label
+const String mainLabel = "Главная";
+const String bascetLabel = "Корзина";
+const String personalLabel = "Личный кабинет";

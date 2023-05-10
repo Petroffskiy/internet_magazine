@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:internet_magazine/feature/presentation/personal/page/personal_page.dart';
 import 'app_router.gr.dart';
 
 @AutoRouterConfig()
@@ -25,8 +26,22 @@ class AppRouter extends $AppRouter {
           ],
         ),
         AutoRoute(
-          path: "/main",
-          page: MainCardRoute.page,
+          path: "/bottom_bar",
+          page: CustomBottomBarRoute.page,
+          children: [
+            AutoRoute(
+              path: '',
+              page: MainCardRoute.page,
+            ),
+            AutoRoute(
+              page: BusketRoute.page,
+              path: "basket/",
+            ),
+            AutoRoute(
+              page: PersonalRoute.page,
+              path: "personal/",
+            ),
+          ],
         ),
       ];
 }
