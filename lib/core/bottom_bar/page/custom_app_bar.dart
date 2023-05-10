@@ -28,9 +28,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.person),
+          icon: const Icon(Icons.exit_to_app_outlined),
           onPressed: () {
-            context.router.replace(AuthorizationRoute());
+            context.router.replace(const AuthEmptyRoute());
           },
         ),
       ],
