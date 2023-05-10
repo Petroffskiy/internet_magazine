@@ -22,6 +22,7 @@ class AuthenticationBloc
       : super(AuthenticationInitial()) {
     on<GetAuthentication>(
       (event, emit) async {
+        emit(AuthenticationLoading());
         final PrimaryUserModelDomain userModel =
             await _iAuthRepositoryDomain.authentication(
           email: event.email,

@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
 import 'package:internet_magazine/core/endpoints/constance.dart';
+import 'package:internet_magazine/feature/data/api/model/gadgets/gadgets_model.dart';
+import 'package:internet_magazine/feature/data/api/model/gadgets/primary_gadgets_model.dart';
 import 'package:internet_magazine/feature/data/api/model/user/user_model.dart';
 import 'package:internet_magazine/feature/data/api/request/authorization_body.dart';
 
@@ -117,13 +119,6 @@ class ConnectionService {
         return const PrimaryUserModel.error(
             ErrorModel(code: 404, message: errorAuthorizationUser));
       }
-      // return const PrimaryUserModel.success(UserModel(
-      //   id: "2322323",
-      //   login: 'login@mail.ru',
-      //   name: 'name',
-      //   password: 'password',
-      //   role: false,
-      // ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ErrorModel error = const ErrorModel(
@@ -150,6 +145,39 @@ class ConnectionService {
         message: errorInvalidEmail,
       );
       return PrimaryUserModel.error(error);
+    }
+  }
+
+  Future<PrimaryGadgetsModel> getGadgets() async {
+    const String endpoint = Constance.GADGETS;
+    final _database =
+        await FirebaseDatabase.instance.ref().child(endpoint).once();
+    if (FirebaseAuth.instance.currentUser != null) {
+      try {
+        if (_database.snapshot.value != null) {
+          final List<dynamic> valueMap =
+              jsonDecode(jsonEncode(_database.snapshot.value));
+          dev.log(name: "sercive gadgets", "$valueMap");
+          final List<GadgetsModel> listGadgets = List.generate(valueMap.length,
+              (index) => GadgetsModel.fromJson(valueMap[index]));
+          return PrimaryGadgetsModel.success(listGadgets);
+        } else {
+          ErrorModel error = const ErrorModel(
+            code: 418,
+            message: "Шеф, всё пропало",
+          );
+          return PrimaryGadgetsModel.error(error);
+        }
+      } catch (e) {
+        ErrorModel error = const ErrorModel(
+          code: 418,
+          message: "Шеф, всё пропало",
+        );
+        return PrimaryGadgetsModel.error(error);
+      }
+    } else {
+      return const PrimaryGadgetsModel.error(ErrorModel(
+          code: 418, message: "Каким-то образом пользователь не авторизован"));
     }
   }
 }

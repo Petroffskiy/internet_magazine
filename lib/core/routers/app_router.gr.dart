@@ -20,7 +20,8 @@ import 'package:internet_magazine/feature/presentation/main_cards/page/main_card
     as _i4;
 
 abstract class $AppRouter extends _i5.RootStackRouter {
-  $AppRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey]) : super();
+  $AppRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
+      : super();
 
   @override
   final Map<String, _i5.PageFactory> pagesMap = {
