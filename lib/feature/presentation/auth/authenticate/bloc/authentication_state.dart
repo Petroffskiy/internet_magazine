@@ -31,3 +31,8 @@ class AuthenticationDownload extends AuthenticationState {
   @override
   List<Object> get props => [];
 }
+
+class AuthenticationSuccess extends AuthenticationState {
+  @override
+  List<Object> get props => [];
+}

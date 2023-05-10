@@ -10,4 +10,9 @@ abstract class IAuthRepositoryDomain {
     required String password,
     required String name,
   });
+
+  Future<bool> checkUser({
+    required String email,
+    required String password,
+  });
 }

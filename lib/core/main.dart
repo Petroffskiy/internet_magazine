@@ -9,13 +9,14 @@ import 'firebase_options.dart';
 import 'injection.dart' as inj;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  //  FlutterNativeSplash.preserve(widgetsBinding: null);
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const Application());
   Hive.registerAdapter(User());
   await Hive.initFlutter();
+
   inj.init();
 }

@@ -58,5 +58,23 @@ class AuthenticationBloc
         );
       },
     );
+    on<CheckHive>(
+      (event, emit) async {
+        final Box<UserModelDomain> userBox =
+            await Hive.openBox<UserModelDomain>("User");
+        final UserModelDomain? user = userBox.get("user_data");
+        if (user != null) {
+          final bool check = await _iAuthRepositoryDomain.checkUser(
+              email: user.login, password: user.password);
+          if (check) {
+            emit(AuthenticationSuccess());
+          } else {
+            emit(AuthenticationInitial());
+          }
+        } else {
+          emit(AuthenticationInitial());
+        }
+      },
+    );
   }
 }

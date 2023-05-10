@@ -18,4 +18,9 @@ class IAuthRepository extends IAuthRepositoryDomain {
       {required String email, required String password, required String name}) {
     return _apiUtil.authorization(email: email, password: password, name: name);
   }
+
+  @override
+  Future<bool> checkUser({required String email, required String password}) {
+    return _apiUtil.checkUser(email: email, password: password);
+  }
 }

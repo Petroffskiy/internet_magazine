@@ -30,6 +30,13 @@ class ApiUtil {
     return UserMapper.fromJson(result);
   }
 
+  Future<bool> checkUser(
+      {required String email, required String password}) async {
+    final result =
+        await _connectionService.checkUser(email: email, password: password);
+    return result;
+  }
+
   Future<PrimaryGadgetsModelDomain> getGadgets() async {
     final result = await _connectionService.getGadgets();
     return GadgetsModelMapper.fromJson(result);

@@ -27,7 +27,7 @@ class ConnectionService {
     await Firebase.initializeApp();
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final FirebaseDatabase _database = FirebaseDatabase.instance;
-
+    dev.log(name: "service check", "password: $password, email: $email");
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -91,8 +91,6 @@ class ConnectionService {
     required String password,
     required String email,
   }) async {
-    final auth = FirebaseAuth.instance;
-
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -145,6 +143,33 @@ class ConnectionService {
         message: errorInvalidEmail,
       );
       return PrimaryUserModel.error(error);
+    }
+  }
+
+  Future<bool> checkUser({
+    required String email,
+    required String password,
+  }) async {
+    await Firebase.initializeApp();
+    dev.log(name: "service check", "start function");
+    dev.log(name: "service check", "password: $password, email: $email");
+
+    try {
+      final UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      User? user = userCredential.user;
+      dev.log(name: "service check", user.toString());
+      if (user != null) {
+        if (user.uid != null) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
     }
   }
 

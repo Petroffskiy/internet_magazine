@@ -18,7 +18,7 @@ class Application extends StatelessWidget {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => inj.inject<AuthenticationBloc>()),
+        BlocProvider(create: (context) => inj.inject<AuthenticationBloc>()..add(const CheckHive())),
         BlocProvider(create: (context) => inj.inject<AuthorizationBloc>()),
         BlocProvider(create: (context) => inj.inject<MainCardBloc>()),
       ],

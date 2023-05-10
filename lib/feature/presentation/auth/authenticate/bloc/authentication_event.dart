@@ -8,11 +8,21 @@ class GetAuthentication extends AuthenticationEvent {
   final String email;
   final String password;
 
-  const GetAuthentication({required this.password, required this.email,});
+  const GetAuthentication({
+    required this.password,
+    required this.email,
+  });
 
   @override
   List<Object> get props => [
-    email,
-    password,
-  ];
+        email,
+        password,
+      ];
+}
+
+class CheckHive extends AuthenticationEvent {
+  const CheckHive();
+
+  @override
+  List<Object> get props => [];
 }
