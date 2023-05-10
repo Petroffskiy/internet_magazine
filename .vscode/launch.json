@@ -9,6 +9,7 @@
             "program": "lib/core/main.dart",
             "request": "launch",
             "type": "dart"
+            
         },
         {
             "name": "internet_magazine (profile mode)",

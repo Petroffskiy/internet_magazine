@@ -120,7 +120,7 @@ class AuthorizationPage extends StatelessWidget {
                     child: BlocListener<AuthorizationBloc, AuthorizationState>(
                       listener: (context, state) {
                         if (state is AuthorizationDownload) {
-                          AutoRouter.of(context).replace(const MainCardRoute());
+                          AutoRouter.of(context).replace(const CustomBottomBarRoute());
                         } else if (state is AuthorizationError) {
                           widgetSnackBar(context: context, text: state.message);
                         }

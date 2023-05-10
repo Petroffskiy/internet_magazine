@@ -103,7 +103,8 @@ class AuthenticationPage extends StatelessWidget {
                         BlocListener<AuthenticationBloc, AuthenticationState>(
                       listener: (context, state) {
                         if (state is AuthenticationDownload) {
-                          AutoRouter.of(context).replace(const MainCardRoute());
+                          AutoRouter.of(context)
+                              .replace(const CustomBottomBarRoute());
                         } else if (state is AuthenticationError) {
                           widgetSnackBar(context: context, text: state.message);
                         }

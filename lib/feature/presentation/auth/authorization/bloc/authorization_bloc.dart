@@ -16,6 +16,7 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
       : super(AuthorizationInitial()) {
     on<GetAuthorization>(
       (event, emit) async {
+        emit(AuthorizationLoading());
         final PrimaryUserModelDomain userModel =
             await _iAuthRepositoryDomain.authorization(
           email: event.email,
@@ -40,7 +41,7 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
           orElse: () {
             emit(
               const AuthorizationError(
-                message: "$errorMessageBloc код: 418",
+                message: "$errorMessageBloc код: $errorBloc",
               ),
             );
           },
