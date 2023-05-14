@@ -11,7 +11,7 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       name: json['name'] as String,
       login: json['login'] as String,
       password: json['password'] as String,
-      role: json['role'] as bool,
+      role: json['role'] as String,
     );
 
 Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>

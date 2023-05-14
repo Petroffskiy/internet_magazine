@@ -1,9 +1,9 @@
 part of 'authorization_bloc.dart';
 
-
 abstract class AuthorizationState extends Equatable {
   const AuthorizationState();
 }
+
 class AuthorizationInitial extends AuthorizationState {
   @override
   List<Object> get props => [];
@@ -28,6 +28,9 @@ class AuthorizationError extends AuthorizationState {
 }
 
 class AuthorizationDownload extends AuthorizationState {
+  final UserRole role;
+
+  const AuthorizationDownload({required this.role});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [role];
 }

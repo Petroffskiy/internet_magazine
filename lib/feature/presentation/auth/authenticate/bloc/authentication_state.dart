@@ -28,11 +28,19 @@ class AuthenticationError extends AuthenticationState {
 }
 
 class AuthenticationDownload extends AuthenticationState {
+  final UserRole role;
+  const AuthenticationDownload({required this.role});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        role,
+      ];
 }
 
 class AuthenticationSuccess extends AuthenticationState {
+  final UserRole role;
+  const AuthenticationSuccess({required this.role});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        role,
+      ];
 }

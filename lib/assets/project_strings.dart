@@ -8,6 +8,10 @@ const String buttonInput = "Войти";
 const String buttonRegistration = "Зарегистрироваться";
 const String registrationButton = "Зарегистрироваться";
 const String authenticateButton = "Обратно ко входу";
+const String changePassword = "Изменить пароль";
+const String visiblePassword = "Показать пароль";
+const String invisiblePassword = "Скрыть пароль";
+
 
 /// error strings
 const String errorMessageMapper = "данные потерялись";
@@ -18,6 +22,8 @@ const int errorForrbiden = 403;
 const String errorInvalidEmail = "Неверный email";
 const String errorUserNotFount = "Пользователь не найдет";
 const String errorWrongPassword = "Неверный пароль";
+const String errorPasswordChangeHint = "Пароль должен быть больше 6 символов";
+const String errorPasswordChangeEmpty = "Пустое поле";
 const String error = "Какая-то ошибка, еще не придумал";
 
 const String errorAuthorizationUser =
@@ -30,3 +36,8 @@ const int errorBloc = 418;
 const String mainLabel = "Главная";
 const String bascetLabel = "Корзина";
 const String personalLabel = "Личный кабинет";
+const String adminLabel = "Режим бога";
+
+///images
+const String image =
+    'https://mzbk-rb.ru/wp-content/uploads/2018/02/logo-1440x720-2.jpg';

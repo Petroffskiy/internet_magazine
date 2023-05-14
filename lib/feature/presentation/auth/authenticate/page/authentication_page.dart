@@ -34,7 +34,7 @@ class AuthenticationPage extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Image.network(
-                'https://mzbk-rb.ru/wp-content/uploads/2018/02/logo-1440x720-2.jpg',
+                image,
               ),
             ),
             Expanded(
@@ -106,36 +106,43 @@ class AuthenticationPage extends StatelessWidget {
                         if (state is AuthenticationInitial) {
                           FlutterNativeSplash.remove();
                         } else if (state is AuthenticationSuccess) {
-                          FlutterNativeSplash.remove();
                           AutoRouter.of(context)
-                              .replace(const CustomBottomBarRoute());
+                              .replace(CustomBottomBarRoute(role: state.role));
                         } else if (state is AuthenticationDownload) {
                           AutoRouter.of(context)
-                              .replace(const CustomBottomBarRoute());
+                              .replace(CustomBottomBarRoute(role: state.role));
                         } else if (state is AuthenticationError) {
                           widgetSnackBar(context: context, text: state.message);
                         }
                       },
                       child: GestureDetector(
                         onTap: () {
-                          if (_email.text.isNotEmpty &&
-                              _password.text.isNotEmpty) {
-                            _passwordValidate =
-                                _password.text.isValidPassword();
-                            _emailValidate = _email.text.isValidEmail();
-                            if (_emailValidate && _passwordValidate) {
-                              context.read<ValidateBloc>().add(ValidateTrue());
-                              context.read<AuthenticationBloc>().add(
-                                    GetAuthentication(
-                                      email: _email.text,
-                                      password: _password.text,
-                                    ),
-                                  );
+                          if (context.read<AuthenticationBloc>().state
+                              is AuthenticationLoading) {
+                          } else {
+                            if (_email.text.isNotEmpty &&
+                                _password.text.isNotEmpty) {
+                              _passwordValidate =
+                                  _password.text.isValidPassword();
+                              _emailValidate = _email.text.isValidEmail();
+                              if (_emailValidate && _passwordValidate) {
+                                context
+                                    .read<ValidateBloc>()
+                                    .add(ValidateTrue());
+                                context.read<AuthenticationBloc>().add(
+                                      GetAuthentication(
+                                        email: _email.text,
+                                        password: _password.text,
+                                      ),
+                                    );
+                              } else {
+                                context
+                                    .read<ValidateBloc>()
+                                    .add(ValidateFalse());
+                              }
                             } else {
                               context.read<ValidateBloc>().add(ValidateFalse());
                             }
-                          } else {
-                            context.read<ValidateBloc>().add(ValidateFalse());
                           }
                         },
                         child: Container(
@@ -150,9 +157,18 @@ class AuthenticationPage extends StatelessWidget {
                                 vertical: 10.0,
                                 horizontal: 5.0,
                               ),
-                              child: Text(
-                                buttonInput,
-                                style: TextStyle(color: whiteColor),
+                              child: BlocBuilder<AuthenticationBloc,
+                                  AuthenticationState>(
+                                builder: (context, state) {
+                                  if (state is AuthenticationLoading) {
+                                    return const CircularProgressIndicator();
+                                  } else {
+                                    return Text(
+                                      buttonInput,
+                                      style: TextStyle(color: whiteColor),
+                                    );
+                                  }
+                                },
                               ),
                             ),
                           ),
@@ -169,6 +185,7 @@ class AuthenticationPage extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         color: blackColor,
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: Center(
                         child: Padding(

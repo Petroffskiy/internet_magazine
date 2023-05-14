@@ -20,7 +20,7 @@ class User extends TypeAdapter<UserModelDomain> {
       id: fields[0] as String,
       name: fields[1] as String,
       password: fields[2] as String,
-      role: fields[3] as bool,
+      role: fields[3] as String,
       login: fields[4] as String,
     );
   }

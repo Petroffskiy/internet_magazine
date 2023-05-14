@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
+import 'package:internet_magazine/core/role/user_role.dart';
 import 'package:internet_magazine/feature/domain/model/user_data/primary_user_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/user_data/user_model_domain.dart';
 import 'package:internet_magazine/feature/domain/repository/i_authentication_repository.dart';
@@ -29,16 +30,18 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
           success: (success) {
             UserModelDomain user = success;
             userBox.put('user_data', user);
-            dev.log(name: "bloc hive", "${userBox.get("user_data")?.name}");
-            emit(AuthorizationDownload());
-            userBox.close();
+            final UserRole role = UserRole.setRole(user.role);
+            userBox.flush();
+            emit(AuthorizationDownload(role: role));
           },
           error: (error) {
+            userBox.flush();
             emit(
               AuthorizationError(message: "${error.message} код:${error.code}"),
             );
           },
           orElse: () {
+            userBox.flush();
             emit(
               const AuthorizationError(
                 message: "$errorMessageBloc код: $errorBloc",

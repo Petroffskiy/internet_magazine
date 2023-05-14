@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
+import 'package:internet_magazine/core/role/user_role.dart';
 import 'package:internet_magazine/feature/domain/model/user_data/primary_user_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/user_data/user_model_domain.dart';
 
@@ -33,22 +34,22 @@ class AuthenticationBloc
         userModel.maybeWhen(
           success: (success) {
             UserModelDomain user = success;
-            dev.log(
-                name: "authentication bloc",
-                "${user.name} ${user.role} ${user.login} ${user.id}");
             userBox.put('user_data', user);
-            dev.log(name: "bloc hive", "${userBox.get("user_data")?.name}");
-            dev.log(name: "bloc hive", "${userBox.length}");
-
-            emit(AuthenticationDownload());
+            final UserRole userRole = UserRole.setRole(user.role);
+            
+            userBox.close;
+            emit(AuthenticationDownload(role: userRole));
           },
           error: (error) {
+            userBox.close;
             emit(
               AuthenticationError(
                   message: "${error.message} код:${error.code}"),
             );
           },
           orElse: () {
+            userBox.close;
+
             emit(
               const AuthenticationError(
                 message: "$errorMessageBloc код: 418",
@@ -60,6 +61,7 @@ class AuthenticationBloc
     );
     on<CheckHive>(
       (event, emit) async {
+        //TODO: вдруг поменяется роль пользователя, нужно как-то проверять 
         final Box<UserModelDomain> userBox =
             await Hive.openBox<UserModelDomain>("User");
         final UserModelDomain? user = userBox.get("user_data");
@@ -67,11 +69,15 @@ class AuthenticationBloc
           final bool check = await _iAuthRepositoryDomain.checkUser(
               email: user.login, password: user.password);
           if (check) {
-            emit(AuthenticationSuccess());
+            final UserRole role = UserRole.setRole(user.role);
+            userBox.close;
+            emit(AuthenticationSuccess(role: role));
           } else {
+            userBox.close;
             emit(AuthenticationInitial());
           }
         } else {
+          userBox.close;
           emit(AuthenticationInitial());
         }
       },

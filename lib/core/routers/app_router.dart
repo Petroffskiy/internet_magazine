@@ -30,7 +30,7 @@ class AppRouter extends $AppRouter {
           page: CustomBottomBarRoute.page,
           children: [
             AutoRoute(
-              path: '',
+              path: ' ',
               page: MainCardRoute.page,
             ),
             AutoRoute(
@@ -38,8 +38,17 @@ class AppRouter extends $AppRouter {
               path: "basket/",
             ),
             AutoRoute(
-              page: PersonalRoute.page,
-              path: "personal/",
+                page: PersonalEmptyRoute.page,
+                path: "personal_empty/",
+                children: [
+                  AutoRoute(
+                    page: PersonalRoute.page,
+                    path: "",
+                  ),
+                ]),
+            AutoRoute(
+              path: "god_mode/",
+              page: GodRoute.page,
             ),
           ],
         ),

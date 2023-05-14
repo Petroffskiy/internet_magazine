@@ -12,7 +12,7 @@ class UserModelDomain with _$UserModelDomain {
     @HiveField(0) required String id,
     @HiveField(1) required String name,
     @HiveField(2) required String password,
-    @HiveField(3) required bool role,
+    @HiveField(3) required String role,
     @HiveField(4) required String login,
   }) = _UserModelDomain;
 }

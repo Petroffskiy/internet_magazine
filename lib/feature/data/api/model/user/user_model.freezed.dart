@@ -24,7 +24,7 @@ mixin _$UserModel {
   String get name => throw _privateConstructorUsedError;
   String get login => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
-  bool get role => throw _privateConstructorUsedError;
+  String get role => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +37,8 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
-  $Res call({String id, String name, String login, String password, bool role});
+  $Res call(
+      {String id, String name, String login, String password, String role});
 }
 
 /// @nodoc
@@ -79,7 +80,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as String,
     ) as $Val);
   }
 }
@@ -91,7 +92,8 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       __$$_UserModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String login, String password, bool role});
+  $Res call(
+      {String id, String name, String login, String password, String role});
 }
 
 /// @nodoc
@@ -131,7 +133,7 @@ class __$$_UserModelCopyWithImpl<$Res>
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as String,
     ));
   }
 }
@@ -158,7 +160,7 @@ class _$_UserModel implements _UserModel {
   @override
   final String password;
   @override
-  final bool role;
+  final String role;
 
   @override
   String toString() {
@@ -202,7 +204,7 @@ abstract class _UserModel implements UserModel {
       required final String name,
       required final String login,
       required final String password,
-      required final bool role}) = _$_UserModel;
+      required final String role}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
@@ -216,7 +218,7 @@ abstract class _UserModel implements UserModel {
   @override
   String get password;
   @override
-  bool get role;
+  String get role;
   @override
   @JsonKey(ignore: true)
   _$$_UserModelCopyWith<_$_UserModel> get copyWith =>

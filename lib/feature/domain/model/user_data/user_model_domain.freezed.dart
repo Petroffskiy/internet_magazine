@@ -23,7 +23,7 @@ mixin _$UserModelDomain {
   @HiveField(2)
   String get password => throw _privateConstructorUsedError;
   @HiveField(3)
-  bool get role => throw _privateConstructorUsedError;
+  String get role => throw _privateConstructorUsedError;
   @HiveField(4)
   String get login => throw _privateConstructorUsedError;
 
@@ -42,7 +42,7 @@ abstract class $UserModelDomainCopyWith<$Res> {
       {@HiveField(0) String id,
       @HiveField(1) String name,
       @HiveField(2) String password,
-      @HiveField(3) bool role,
+      @HiveField(3) String role,
       @HiveField(4) String login});
 }
 
@@ -81,7 +81,7 @@ class _$UserModelDomainCopyWithImpl<$Res, $Val extends UserModelDomain>
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as String,
       login: null == login
           ? _value.login
           : login // ignore: cast_nullable_to_non_nullable
@@ -102,7 +102,7 @@ abstract class _$$_UserModelDomainCopyWith<$Res>
       {@HiveField(0) String id,
       @HiveField(1) String name,
       @HiveField(2) String password,
-      @HiveField(3) bool role,
+      @HiveField(3) String role,
       @HiveField(4) String login});
 }
 
@@ -139,7 +139,7 @@ class __$$_UserModelDomainCopyWithImpl<$Res>
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as String,
       login: null == login
           ? _value.login
           : login // ignore: cast_nullable_to_non_nullable
@@ -169,7 +169,7 @@ class _$_UserModelDomain implements _UserModelDomain {
   final String password;
   @override
   @HiveField(3)
-  final bool role;
+  final String role;
   @override
   @HiveField(4)
   final String login;
@@ -207,7 +207,7 @@ abstract class _UserModelDomain implements UserModelDomain {
       {@HiveField(0) required final String id,
       @HiveField(1) required final String name,
       @HiveField(2) required final String password,
-      @HiveField(3) required final bool role,
+      @HiveField(3) required final String role,
       @HiveField(4) required final String login}) = _$_UserModelDomain;
 
   @override
@@ -221,7 +221,7 @@ abstract class _UserModelDomain implements UserModelDomain {
   String get password;
   @override
   @HiveField(3)
-  bool get role;
+  String get role;
   @override
   @HiveField(4)
   String get login;

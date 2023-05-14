@@ -1,8 +1,10 @@
 import 'package:internet_magazine/feature/data/api/model/gadgets/primary_gadgets_model.dart';
 import 'package:internet_magazine/feature/data/api/service/connection_service.dart';
 import 'package:internet_magazine/feature/data/mapper/gadgets/list_gadgets_mapper.dart';
+import 'package:internet_magazine/feature/data/mapper/personal/update_password_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/user/user_mapper.dart';
 import 'package:internet_magazine/feature/domain/model/gadgets/list_gadgets/primary_gadgets_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/personal/primary_update_password_domain.dart';
 
 import '../../domain/model/user_data/primary_user_model_domain.dart';
 
@@ -40,5 +42,11 @@ class ApiUtil {
   Future<PrimaryGadgetsModelDomain> getGadgets() async {
     final result = await _connectionService.getGadgets();
     return GadgetsModelMapper.fromJson(result);
+  }
+
+  Future<PrimaryUpdatePasswordDomain> getUpdate(
+      {required String password}) async {
+    final result = await _connectionService.getUpdate(password: password);
+    return UpdatePasswordMapper.fromJson(result);
   }
 }

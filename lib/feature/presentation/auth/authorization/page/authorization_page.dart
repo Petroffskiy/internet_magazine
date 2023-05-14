@@ -15,7 +15,6 @@ class AuthorizationPage extends StatelessWidget {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _name = TextEditingController();
-  bool _passwordVisible = false;
   bool _passwordValidate = false;
   bool _emailValidate = false;
 
@@ -33,10 +32,10 @@ class AuthorizationPage extends StatelessWidget {
           direction: Axis.vertical,
           children: [
             Expanded(
-              flex: 2,
-              child: Image.network(
-                  'https://mzbk-rb.ru/wp-content/uploads/2018/02/logo-1440x720-2.jpg'),
-            ),
+                flex: 2,
+                child: Image.network(
+                  image,
+                )),
             Expanded(
               flex: 3,
               child: Column(
@@ -120,34 +119,43 @@ class AuthorizationPage extends StatelessWidget {
                     child: BlocListener<AuthorizationBloc, AuthorizationState>(
                       listener: (context, state) {
                         if (state is AuthorizationDownload) {
-                          AutoRouter.of(context).replace(const CustomBottomBarRoute());
+                          AutoRouter.of(context)
+                              .replace(CustomBottomBarRoute(role: state.role));
                         } else if (state is AuthorizationError) {
                           widgetSnackBar(context: context, text: state.message);
                         }
                       },
                       child: GestureDetector(
                         onTap: () {
-                          if (_email.text.isNotEmpty &&
-                              _password.text.isNotEmpty &&
-                              _name.text.isNotEmpty) {
-                            _passwordValidate =
-                                _password.text.isValidPassword();
-                            _emailValidate = _email.text.isValidEmail();
+                          if (context.read<AuthorizationBloc>().state
+                              is AuthorizationLoading) {
+                          } else {
+                            if (_email.text.isNotEmpty &&
+                                _password.text.isNotEmpty &&
+                                _name.text.isNotEmpty) {
+                              _passwordValidate =
+                                  _password.text.isValidPassword();
+                              _emailValidate = _email.text.isValidEmail();
 
-                            if (_emailValidate && _passwordValidate) {
-                              context.read<ValidateBloc>().add(ValidateTrue());
-                              context.read<AuthorizationBloc>().add(
-                                    GetAuthorization(
-                                      email: _email.text,
-                                      name: _name.text,
-                                      password: _password.text,
-                                    ),
-                                  );
+                              if (_emailValidate && _passwordValidate) {
+                                context
+                                    .read<ValidateBloc>()
+                                    .add(ValidateTrue());
+                                context.read<AuthorizationBloc>().add(
+                                      GetAuthorization(
+                                        email: _email.text,
+                                        name: _name.text,
+                                        password: _password.text,
+                                      ),
+                                    );
+                              } else {
+                                context
+                                    .read<ValidateBloc>()
+                                    .add(ValidateFalse());
+                              }
                             } else {
                               context.read<ValidateBloc>().add(ValidateFalse());
                             }
-                          } else {
-                            context.read<ValidateBloc>().add(ValidateFalse());
                           }
                         },
                         child: Container(
@@ -162,9 +170,18 @@ class AuthorizationPage extends StatelessWidget {
                                 vertical: 10.0,
                                 horizontal: 5.0,
                               ),
-                              child: Text(
-                                buttonRegistration,
-                                style: TextStyle(color: whiteColor),
+                              child: BlocBuilder<AuthorizationBloc,
+                                  AuthorizationState>(
+                                builder: (context, state) {
+                                  if (state is AuthorizationLoading) {
+                                    return const CircularProgressIndicator();
+                                  } else {
+                                    return Text(
+                                      buttonRegistration,
+                                      style: TextStyle(color: whiteColor),
+                                    );
+                                  }
+                                },
                               ),
                             ),
                           ),
@@ -182,6 +199,7 @@ class AuthorizationPage extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                           color: blackColor,
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Padding(

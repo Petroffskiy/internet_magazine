@@ -4,22 +4,20 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
 import 'package:internet_magazine/core/endpoints/constance.dart';
+import 'package:internet_magazine/feature/data/api/model/error/error_model.dart';
 import 'package:internet_magazine/feature/data/api/model/gadgets/gadgets_model.dart';
 import 'package:internet_magazine/feature/data/api/model/gadgets/primary_gadgets_model.dart';
+import 'package:internet_magazine/feature/data/api/model/personal/primary_update_password.dart';
+import 'package:internet_magazine/feature/data/api/model/user/primary_user_model.dart';
 import 'package:internet_magazine/feature/data/api/model/user/user_model.dart';
 import 'package:internet_magazine/feature/data/api/request/authorization_body.dart';
 
-import '../model/error/error_model.dart';
-import '../model/user/primary_user_model.dart';
-// import 'dio/dio_client.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'dart:developer' as dev;
 
 class ConnectionService {
-  // final Dio _dio = buildDioClient();
-
   Future<PrimaryUserModel> getData({
     required String email,
     required String password,
@@ -94,6 +92,7 @@ class ConnectionService {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+
       if (userCredential.user != null) {
         const String endpoit = Constance.USER;
         String uid = userCredential.user!.uid;
@@ -110,7 +109,7 @@ class ConnectionService {
             name: name,
             login: email,
             password: password,
-            role: false,
+            role: "user",
           ),
         );
       } else {
@@ -203,6 +202,30 @@ class ConnectionService {
     } else {
       return const PrimaryGadgetsModel.error(ErrorModel(
           code: 418, message: "Каким-то образом пользователь не авторизован"));
+    }
+  }
+
+  Future<PrimaryUpdatePassword> getUpdate({required String password}) async {
+    await Firebase.initializeApp();
+    const String endpoint = Constance.USER;
+    final User? _user = FirebaseAuth.instance.currentUser;
+    if (_user != null) {
+      final _database =
+          FirebaseDatabase.instance.ref().child(endpoint).child(_user.uid);
+          
+      dev.log("password: $password");
+      try {
+        await _user.updatePassword(password);
+        _database.update({"password": password});
+        return PrimaryUpdatePassword.success(password);
+      } catch (e) {
+        final ErrorModel error =
+            ErrorModel(message: e.toString(), code: errorBloc);
+        return PrimaryUpdatePassword.error(error);
+      }
+    } else {
+      const ErrorModel error = ErrorModel(message: "Пустой юзер", code: 404);
+      return const PrimaryUpdatePassword.error(error);
     }
   }
 }

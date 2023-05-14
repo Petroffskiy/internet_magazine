@@ -6,7 +6,7 @@ part 'gadgets_model.g.dart';
 @freezed
 class GadgetsModel with _$GadgetsModel {
   const factory GadgetsModel({
-    required int id,
+    required String id,
     required String image,
     required String name,
   }) = _GadgetsModel;

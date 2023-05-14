@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GadgetsModelDomain {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
@@ -31,7 +31,7 @@ abstract class $GadgetsModelDomainCopyWith<$Res> {
           GadgetsModelDomain value, $Res Function(GadgetsModelDomain) then) =
       _$GadgetsModelDomainCopyWithImpl<$Res, GadgetsModelDomain>;
   @useResult
-  $Res call({int id, String image, String name});
+  $Res call({String id, String image, String name});
 }
 
 /// @nodoc
@@ -55,7 +55,7 @@ class _$GadgetsModelDomainCopyWithImpl<$Res, $Val extends GadgetsModelDomain>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -76,7 +76,7 @@ abstract class _$$_GadgetsModelCopyWith<$Res>
       __$$_GadgetsModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String image, String name});
+  $Res call({String id, String image, String name});
 }
 
 /// @nodoc
@@ -98,7 +98,7 @@ class __$$_GadgetsModelCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -118,7 +118,7 @@ class _$_GadgetsModel implements _GadgetsModel {
       {required this.id, required this.image, required this.name});
 
   @override
-  final int id;
+  final String id;
   @override
   final String image;
   @override
@@ -151,12 +151,12 @@ class _$_GadgetsModel implements _GadgetsModel {
 
 abstract class _GadgetsModel implements GadgetsModelDomain {
   const factory _GadgetsModel(
-      {required final int id,
+      {required final String id,
       required final String image,
       required final String name}) = _$_GadgetsModel;
 
   @override
-  int get id;
+  String get id;
   @override
   String get image;
   @override

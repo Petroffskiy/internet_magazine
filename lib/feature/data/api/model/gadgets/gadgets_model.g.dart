@@ -8,7 +8,7 @@ part of 'gadgets_model.dart';
 
 _$_GadgetsModel _$$_GadgetsModelFromJson(Map<String, dynamic> json) =>
     _$_GadgetsModel(
-      id: json['id'] as int,
+      id: json['id'] as String,
       image: json['image'] as String,
       name: json['name'] as String,
     );

@@ -1,6 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:internet_magazine/core/role/inherit_role.dart';
 import 'package:internet_magazine/feature/presentation/main_cards/bloc/main_card_bloc.dart';
 import 'package:internet_magazine/feature/presentation/widgets/image_network.dart';
 import 'package:internet_magazine/feature/presentation/widgets/widget_stack_bar.dart';
@@ -22,7 +24,10 @@ class MainCardPage extends StatelessWidget {
               Center(
                 child: BlocBuilder<MainCardBloc, MainCardState>(
                   builder: (context, state) {
+                    FlutterNativeSplash.remove();
                     if (state is MainCardDownloaded) {
+                      print(
+                          "This is role: ${InheritedRole.of(context)?.role.toString()}");
                       return Wrap(
                         children: [
                           ...List.generate(

@@ -20,7 +20,7 @@ GadgetsModel _$GadgetsModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$GadgetsModel {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
@@ -36,7 +36,7 @@ abstract class $GadgetsModelCopyWith<$Res> {
           GadgetsModel value, $Res Function(GadgetsModel) then) =
       _$GadgetsModelCopyWithImpl<$Res, GadgetsModel>;
   @useResult
-  $Res call({int id, String image, String name});
+  $Res call({String id, String image, String name});
 }
 
 /// @nodoc
@@ -60,7 +60,7 @@ class _$GadgetsModelCopyWithImpl<$Res, $Val extends GadgetsModel>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ abstract class _$$_GadgetsModelCopyWith<$Res>
       __$$_GadgetsModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String image, String name});
+  $Res call({String id, String image, String name});
 }
 
 /// @nodoc
@@ -103,7 +103,7 @@ class __$$_GadgetsModelCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -126,7 +126,7 @@ class _$_GadgetsModel implements _GadgetsModel {
       _$$_GadgetsModelFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final String image;
   @override
@@ -167,7 +167,7 @@ class _$_GadgetsModel implements _GadgetsModel {
 
 abstract class _GadgetsModel implements GadgetsModel {
   const factory _GadgetsModel(
-      {required final int id,
+      {required final String id,
       required final String image,
       required final String name}) = _$_GadgetsModel;
 
@@ -175,7 +175,7 @@ abstract class _GadgetsModel implements GadgetsModel {
       _$_GadgetsModel.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   String get image;
   @override
