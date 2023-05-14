@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:internet_magazine/feature/data/api/model/error/error_model.dart';
-import 'package:internet_magazine/feature/data/api/model/gadgets/gadgets_model.dart';
+import 'package:internet_magazine/feature/data/api/model/main/gadgets/gadgets_model.dart';
 
 part 'primary_gadgets_model.freezed.dart';
 

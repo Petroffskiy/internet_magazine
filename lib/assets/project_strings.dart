@@ -11,7 +11,8 @@ const String authenticateButton = "Обратно ко входу";
 const String changePassword = "Изменить пароль";
 const String visiblePassword = "Показать пароль";
 const String invisiblePassword = "Скрыть пароль";
-
+const String product = "Товар";
+const String categories = "Категории";
 
 /// error strings
 const String errorMessageMapper = "данные потерялись";

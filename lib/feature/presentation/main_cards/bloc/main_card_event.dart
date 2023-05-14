@@ -4,8 +4,10 @@ abstract class MainCardEvent extends Equatable {
   const MainCardEvent();
 }
 
-class GetListCategory extends MainCardEvent {
-  const GetListCategory();
+class GetAllData extends MainCardEvent {
+  const GetAllData();
   @override
   List<Object> get props => [];
 }
+
+

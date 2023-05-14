@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_magazine/assets/colors/colors.dart';
 import 'package:internet_magazine/core/bottom_bar/bloc/app_bar_bloc.dart';
 import 'package:internet_magazine/core/routers/app_router.gr.dart';
 import 'package:internet_magazine/feature/presentation/widgets/widget_stack_bar.dart';
@@ -21,7 +22,10 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             onPressed: () {
               AutoRouter.of(context).popTop();
             },
-            icon: const Icon(Icons.arrow_back_ios_new)),
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: grey,
+            )),
       ),
       title: Align(
         alignment: Alignment.centerLeft,

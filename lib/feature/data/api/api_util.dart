@@ -1,9 +1,12 @@
-import 'package:internet_magazine/feature/data/api/model/gadgets/primary_gadgets_model.dart';
+import 'package:internet_magazine/feature/data/api/model/main/gadgets/primary_gadgets_model.dart';
+import 'package:internet_magazine/feature/data/api/model/main/products/primary_product_model.dart';
 import 'package:internet_magazine/feature/data/api/service/connection_service.dart';
-import 'package:internet_magazine/feature/data/mapper/gadgets/list_gadgets_mapper.dart';
+import 'package:internet_magazine/feature/data/mapper/main/list_gadgets_mapper.dart';
+import 'package:internet_magazine/feature/data/mapper/main/list_personal_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/personal/update_password_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/user/user_mapper.dart';
-import 'package:internet_magazine/feature/domain/model/gadgets/list_gadgets/primary_gadgets_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/main/list_gadgets/primary_gadgets_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/main/list_product/primary_products_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/personal/primary_update_password_domain.dart';
 
 import '../../domain/model/user_data/primary_user_model_domain.dart';
@@ -48,5 +51,11 @@ class ApiUtil {
       {required String password}) async {
     final result = await _connectionService.getUpdate(password: password);
     return UpdatePasswordMapper.fromJson(result);
+  }
+
+  Future<PrimaryProductsModelDomain> getProducts(
+      {required List<String> finder}) async {
+    final result = await _connectionService.getProducts(finder: finder);
+    return ProductsModelMapper.fromJson(result);
   }
 }

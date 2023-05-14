@@ -20,10 +20,25 @@ class MainCardError extends MainCardState {
 
 class MainCardDownloaded extends MainCardState {
   final List<GadgetsModelDomain> listGadget;
+  final List<ProductModelDomain> listProduct;
 
-  const MainCardDownloaded({required this.listGadget});
+  const MainCardDownloaded({
+    required this.listGadget,
+    required this.listProduct,
+  });
+  MainCardDownloaded copyWith({
+    required List<GadgetsModelDomain>? listGadgets,
+    required List<ProductModelDomain>? listProduct,
+  }) {
+    return MainCardDownloaded(
+      listGadget: listGadget ?? this.listGadget,
+      listProduct: listProduct ?? this.listProduct,
+    );
+  }
+
   @override
   List<Object> get props => [
         listGadget,
+        listProduct,
       ];
 }

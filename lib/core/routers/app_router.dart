@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:internet_magazine/feature/presentation/main_cards/page/main_card_empty_page.dart';
 import 'package:internet_magazine/feature/presentation/personal/page/personal_page.dart';
 import 'app_router.gr.dart';
 
@@ -30,8 +31,18 @@ class AppRouter extends $AppRouter {
           page: CustomBottomBarRoute.page,
           children: [
             AutoRoute(
-              path: ' ',
-              page: MainCardRoute.page,
+              page: MainCardEmptyRoute.page,
+              path: 'main_card_empty/',
+              children: [
+                AutoRoute(
+                  path: '',
+                  page: MainCardRoute.page,
+                ),
+                AutoRoute(
+                  path: "singel_card/",
+                  page: SingleCardRoute.page,
+                ),
+              ],
             ),
             AutoRoute(
               page: BusketRoute.page,

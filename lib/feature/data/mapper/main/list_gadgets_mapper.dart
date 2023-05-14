@@ -1,8 +1,8 @@
 import 'package:internet_magazine/assets/project_strings.dart';
-import 'package:internet_magazine/feature/data/api/model/gadgets/primary_gadgets_model.dart';
+import 'package:internet_magazine/feature/data/api/model/main/gadgets/primary_gadgets_model.dart';
 import 'package:internet_magazine/feature/domain/model/error_domain/error_model_domain.dart';
-import 'package:internet_magazine/feature/domain/model/gadgets/list_gadgets/gadgets_model_domain.dart';
-import 'package:internet_magazine/feature/domain/model/gadgets/list_gadgets/primary_gadgets_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/main/list_gadgets/gadgets_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/main/list_gadgets/primary_gadgets_model_domain.dart';
 
 class GadgetsModelMapper {
   static PrimaryGadgetsModelDomain fromJson(PrimaryGadgetsModel listGadgets) {

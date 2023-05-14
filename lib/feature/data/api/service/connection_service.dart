@@ -5,8 +5,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
 import 'package:internet_magazine/core/endpoints/constance.dart';
 import 'package:internet_magazine/feature/data/api/model/error/error_model.dart';
-import 'package:internet_magazine/feature/data/api/model/gadgets/gadgets_model.dart';
-import 'package:internet_magazine/feature/data/api/model/gadgets/primary_gadgets_model.dart';
+import 'package:internet_magazine/feature/data/api/model/main/gadgets/gadgets_model.dart';
+import 'package:internet_magazine/feature/data/api/model/main/gadgets/primary_gadgets_model.dart';
+import 'package:internet_magazine/feature/data/api/model/main/products/primary_product_model.dart';
+import 'package:internet_magazine/feature/data/api/model/main/products/product_model.dart';
 import 'package:internet_magazine/feature/data/api/model/personal/primary_update_password.dart';
 import 'package:internet_magazine/feature/data/api/model/user/primary_user_model.dart';
 import 'package:internet_magazine/feature/data/api/model/user/user_model.dart';
@@ -195,7 +197,7 @@ class ConnectionService {
       } catch (e) {
         ErrorModel error = const ErrorModel(
           code: 418,
-          message: "Шеф, всё пропало",
+          message: "c",
         );
         return PrimaryGadgetsModel.error(error);
       }
@@ -212,7 +214,7 @@ class ConnectionService {
     if (_user != null) {
       final _database =
           FirebaseDatabase.instance.ref().child(endpoint).child(_user.uid);
-          
+
       dev.log("password: $password");
       try {
         await _user.updatePassword(password);
@@ -227,5 +229,48 @@ class ConnectionService {
       const ErrorModel error = ErrorModel(message: "Пустой юзер", code: 404);
       return const PrimaryUpdatePassword.error(error);
     }
+  }
+
+  Future<PrimaryProductModel> getProducts(
+      {required List<String> finder}) async {
+    const String endpoint = Constance.PRIMARY;
+    await Firebase.initializeApp();
+    final _database = FirebaseDatabase.instance.ref().child(endpoint);
+    final List<DatabaseReference> endpoints = List.generate(
+      finder.length,
+      (index) => _database.child(
+        finder[index],
+      ),
+    );
+    List<ProductModel> result = [];
+    for (int i = 0; i < endpoints.length; i++) {
+      try {
+        final values = await endpoints[i].once();
+        dev.log(
+            name: "service getProduct",
+            "endpoint: ${endpoints[i].key.toString()} && ${_database.path}");
+        if (values.snapshot.value != null) {
+          final List<dynamic> valueList =
+              values.snapshot.value as List<dynamic>;
+          final List<Map<String, dynamic>> valueMapList = valueList
+              .map((value) => Map<String, dynamic>.from(value))
+              .toList();
+          dev.log(
+              name: "service getProduct", "in lsts index $i, $valueMapList");
+          result.addAll(List.generate(valueMapList.length,
+              (index) => ProductModel.fromJson(valueMapList[index])));
+        } else {
+          ErrorModel error = ErrorModel(
+            code: 418,
+            message: "Шеф, всё пропало ${values.snapshot.value.toString()}",
+          );
+          return PrimaryProductModel.error(error);
+        }
+      } catch (e) {
+        ErrorModel error = ErrorModel(message: e.toString(), code: 418);
+        return PrimaryProductModel.error(error);
+      }
+    }
+    return PrimaryProductModel.success(result);
   }
 }
