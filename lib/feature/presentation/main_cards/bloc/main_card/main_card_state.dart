@@ -26,8 +26,15 @@ class MainCardDownloaded extends MainCardState {
     required this.listGadget,
     required this.listProduct,
   });
+
+  @override
+  List<Object> get props => [
+        listGadget,
+        listProduct,
+      ];
+      
   MainCardDownloaded copyWith({
-    required List<GadgetsModelDomain>? listGadgets,
+    required List<GadgetsModelDomain>? listGadget,
     required List<ProductModelDomain>? listProduct,
   }) {
     return MainCardDownloaded(
@@ -35,10 +42,4 @@ class MainCardDownloaded extends MainCardState {
       listProduct: listProduct ?? this.listProduct,
     );
   }
-
-  @override
-  List<Object> get props => [
-        listGadget,
-        listProduct,
-      ];
 }

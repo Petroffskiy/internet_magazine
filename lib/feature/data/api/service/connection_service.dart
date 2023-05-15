@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
 import 'package:internet_magazine/core/endpoints/constance.dart';
+import 'package:internet_magazine/feature/data/api/model/busket/primary_busket_model.dart';
 import 'package:internet_magazine/feature/data/api/model/error/error_model.dart';
 import 'package:internet_magazine/feature/data/api/model/main/gadgets/gadgets_model.dart';
 import 'package:internet_magazine/feature/data/api/model/main/gadgets/primary_gadgets_model.dart';
@@ -12,12 +13,14 @@ import 'package:internet_magazine/feature/data/api/model/main/products/product_m
 import 'package:internet_magazine/feature/data/api/model/personal/primary_update_password.dart';
 import 'package:internet_magazine/feature/data/api/model/user/primary_user_model.dart';
 import 'package:internet_magazine/feature/data/api/model/user/user_model.dart';
-import 'package:internet_magazine/feature/data/api/request/authorization_body.dart';
+import 'package:internet_magazine/feature/data/api/request/auth/authorization_body.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'dart:developer' as dev;
+
+import 'package:internet_magazine/feature/data/api/request/save_product/save_product_body.dart';
 
 class ConnectionService {
   Future<PrimaryUserModel> getData({
@@ -272,5 +275,70 @@ class ConnectionService {
       }
     }
     return PrimaryProductModel.success(result);
+  }
+
+  Future<bool> saveProduct({required SaveProductBody product}) async {
+    const String endpoint = Constance.SAVEBUSKET;
+    await Firebase.initializeApp();
+    try {
+      dev.log(name: "service save product", "save start");
+      final _database = FirebaseDatabase.instance.ref().child(endpoint);
+      final User? _user = FirebaseAuth.instance.currentUser;
+      if (_user != null) {
+        _database.child(_user.uid).push().set(product.toJson());
+        dev.log(
+            name: "service save product", "save complete: ${_database.key}");
+        return true;
+      } else {
+        dev.log(name: "service save product", "save error");
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<PrimaryBusketModel> getBusketData() async {
+    const String endpoint = Constance.SAVEBUSKET;
+    await Firebase.initializeApp();
+    try {
+      dev.log(name: "service busket data", "busket data start");
+      final _database = FirebaseDatabase.instance.ref().child(endpoint);
+      final User? _user = FirebaseAuth.instance.currentUser;
+      if (_user != null) {
+        final data = await _database.child(_user.uid).once();
+        if (data.snapshot.value != null) {
+          final List<dynamic> valueList = data.snapshot.value as List<dynamic>;
+          final List<Map<String, dynamic>> valueMapList = valueList
+              .map((value) => Map<String, dynamic>.from(value))
+              .toList();
+          final List<SaveProductBody> result = List.generate(
+            valueMapList.length,
+            (index) => SaveProductBody.fromJson(
+              valueMapList[index],
+            ),
+          );
+          return PrimaryBusketModel.success(result);
+        } else {
+          const ErrorModel error = ErrorModel(
+            message: "snapshot null",
+            code: 418,
+          );
+          return const PrimaryBusketModel.error(error);
+        }
+      } else {
+        const ErrorModel error = ErrorModel(
+          message: "User null",
+          code: 418,
+        );
+        return const PrimaryBusketModel.error(error);
+      }
+    } catch (e) {
+      final ErrorModel error = ErrorModel(
+        message: e.toString(),
+        code: 418,
+      );
+      return PrimaryBusketModel.error(error);
+    }
   }
 }

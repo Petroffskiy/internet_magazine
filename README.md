@@ -48,7 +48,7 @@ class TestCreationState extends Equatable {
     String? name,
     List<HiveChild>? children,
   }) {
-    return AlbumCreationState(
+    return TextCreationState(
         status: status ?? this.status,
         name: name ?? this.name,
         children: children ?? this.children);
@@ -57,6 +57,6 @@ class TestCreationState extends Equatable {
   @override
   List<Object?> get props => [
         status, name, children,
-        //sheets
+
       ];
 }

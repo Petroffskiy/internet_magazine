@@ -13,6 +13,10 @@ const String visiblePassword = "Показать пароль";
 const String invisiblePassword = "Скрыть пароль";
 const String product = "Товар";
 const String categories = "Категории";
+const String payProdyct = "Купить";
+const String toBusket = "К корзине";
+const String saveComplete = "Успешно сохранено";
+const String changeAll = "Выбрать всё";
 
 /// error strings
 const String errorMessageMapper = "данные потерялись";
@@ -26,6 +30,7 @@ const String errorWrongPassword = "Неверный пароль";
 const String errorPasswordChangeHint = "Пароль должен быть больше 6 символов";
 const String errorPasswordChangeEmpty = "Пустое поле";
 const String error = "Какая-то ошибка, еще не придумал";
+const String errorServer = "Ошибка на вервере";
 
 const String errorAuthorizationUser =
     "По какой-то причине данных пользователя нет, попробуйте по позже";

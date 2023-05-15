@@ -1,12 +1,14 @@
-import 'package:internet_magazine/feature/data/api/model/main/gadgets/primary_gadgets_model.dart';
-import 'package:internet_magazine/feature/data/api/model/main/products/primary_product_model.dart';
 import 'package:internet_magazine/feature/data/api/service/connection_service.dart';
+import 'package:internet_magazine/feature/data/mapper/busket/busket_data_mappert.dart';
 import 'package:internet_magazine/feature/data/mapper/main/list_gadgets_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/main/list_personal_mapper.dart';
+import 'package:internet_magazine/feature/data/mapper/busket/save_product_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/personal/update_password_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/user/user_mapper.dart';
+import 'package:internet_magazine/feature/domain/model/busket/busket_data/primary_busket_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/main/list_gadgets/primary_gadgets_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/main/list_product/primary_products_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/busket/save_product/save_product_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/personal/primary_update_password_domain.dart';
 
 import '../../domain/model/user_data/primary_user_model_domain.dart';
@@ -57,5 +59,16 @@ class ApiUtil {
       {required List<String> finder}) async {
     final result = await _connectionService.getProducts(finder: finder);
     return ProductsModelMapper.fromJson(result);
+  }
+
+  Future<bool> saveProduct({required SaveProductModelDomain product}) async {
+    final result = await _connectionService.saveProduct(
+        product: SaveProductMapper.toJson(product));
+    return result;
+  }
+
+  Future<PrimaryBusketModelDomain> getBusketData() async {
+    final result = await _connectionService.getBusketData();
+    return BusketDataMapper.fromJson(result);
   }
 }
