@@ -10,10 +10,9 @@ class AuthorizationBody with _$AuthorizationBody {
     required String name,
     required String password,
     required String login,
-    @Default(false) bool role,
+    @Default("user") String role,
   }) = _AuthorizationBody;
 
   factory AuthorizationBody.fromJson(Map<String, dynamic> map) =>
       _$AuthorizationBodyFromJson(map);
-
 }

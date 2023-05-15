@@ -12,7 +12,7 @@ _$_AuthorizationBody _$$_AuthorizationBodyFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       password: json['password'] as String,
       login: json['login'] as String,
-      role: json['role'] as bool? ?? false,
+      role: json['role'] as String? ?? "user",
     );
 
 Map<String, dynamic> _$$_AuthorizationBodyToJson(

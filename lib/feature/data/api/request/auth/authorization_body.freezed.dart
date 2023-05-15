@@ -24,7 +24,7 @@ mixin _$AuthorizationBody {
   String get name => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get login => throw _privateConstructorUsedError;
-  bool get role => throw _privateConstructorUsedError;
+  String get role => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +38,8 @@ abstract class $AuthorizationBodyCopyWith<$Res> {
           AuthorizationBody value, $Res Function(AuthorizationBody) then) =
       _$AuthorizationBodyCopyWithImpl<$Res, AuthorizationBody>;
   @useResult
-  $Res call({String id, String name, String password, String login, bool role});
+  $Res call(
+      {String id, String name, String password, String login, String role});
 }
 
 /// @nodoc
@@ -80,7 +81,7 @@ class _$AuthorizationBodyCopyWithImpl<$Res, $Val extends AuthorizationBody>
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as String,
     ) as $Val);
   }
 }
@@ -93,7 +94,8 @@ abstract class _$$_AuthorizationBodyCopyWith<$Res>
       __$$_AuthorizationBodyCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String password, String login, bool role});
+  $Res call(
+      {String id, String name, String password, String login, String role});
 }
 
 /// @nodoc
@@ -133,7 +135,7 @@ class __$$_AuthorizationBodyCopyWithImpl<$Res>
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as String,
     ));
   }
 }
@@ -147,7 +149,7 @@ class _$_AuthorizationBody implements _AuthorizationBody {
       required this.name,
       required this.password,
       required this.login,
-      this.role = false});
+      this.role = "user"});
 
   factory _$_AuthorizationBody.fromJson(Map<String, dynamic> json) =>
       _$$_AuthorizationBodyFromJson(json);
@@ -162,7 +164,7 @@ class _$_AuthorizationBody implements _AuthorizationBody {
   final String login;
   @override
   @JsonKey()
-  final bool role;
+  final String role;
 
   @override
   String toString() {
@@ -207,7 +209,7 @@ abstract class _AuthorizationBody implements AuthorizationBody {
       required final String name,
       required final String password,
       required final String login,
-      final bool role}) = _$_AuthorizationBody;
+      final String role}) = _$_AuthorizationBody;
 
   factory _AuthorizationBody.fromJson(Map<String, dynamic> json) =
       _$_AuthorizationBody.fromJson;
@@ -221,7 +223,7 @@ abstract class _AuthorizationBody implements AuthorizationBody {
   @override
   String get login;
   @override
-  bool get role;
+  String get role;
   @override
   @JsonKey(ignore: true)
   _$$_AuthorizationBodyCopyWith<_$_AuthorizationBody> get copyWith =>
