@@ -19,6 +19,7 @@ class AuthenticationPage extends StatelessWidget {
   final TextEditingController _password = TextEditingController();
   bool _emailValidate = false;
   bool _passwordValidate = false;
+
   AuthenticationPage({super.key});
 
   @override
@@ -103,6 +104,7 @@ class AuthenticationPage extends StatelessWidget {
                     child:
                         BlocListener<AuthenticationBloc, AuthenticationState>(
                       listener: (context, state) {
+                        FlutterNativeSplash.remove();
                         if (state is AuthenticationInitial) {
                           FlutterNativeSplash.remove();
                         } else if (state is AuthenticationSuccess) {

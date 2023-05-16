@@ -1,17 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:internet_magazine/core/routers/auth_guards.dart';
+
 import 'app_router.gr.dart';
 
 @AutoRouterConfig()
-class AppRouter extends $AppRouter {
+class AppRouter extends $AppRouter implements AutoRouteGuard {
   @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) async {
+  void onNavigation(NavigationResolver resolver, StackRouter router) {
     final loggedIn = FirebaseAuth.instance.currentUser;
-    if (loggedIn != null || resolver.route.name == AuthEmptyRoute.name) {
-      resolver.next();
+    if (loggedIn != null || resolver.route.name == AuthenticationRoute.name) {
+      resolver.next(true);
     } else {
-      router.push(const AuthEmptyRoute());
+      resolver.next(false);
+      // router.push(const AuthEmptyRoute());
     }
   }
 
@@ -40,7 +41,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           path: "/",
           page: CustomBottomBarRoute.page,
-          guards: [AuthGuards()],
           children: [
             AutoRoute(
               page: MainCardEmptyRoute.page,
