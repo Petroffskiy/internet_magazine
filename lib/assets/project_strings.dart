@@ -17,6 +17,7 @@ const String payProdyct = "Купить";
 const String toBusket = "К корзине";
 const String saveComplete = "Успешно сохранено";
 const String changeAll = "Выбрать всё";
+const String emptyBusket = "Корзина пуста";
 
 /// error strings
 const String errorMessageMapper = "данные потерялись";
