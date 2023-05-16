@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
 
@@ -28,10 +28,8 @@ class SaveBusketBloc extends Bloc<SaveBusketEvent, SaveBusketState> {
         final bool response =
             await _iMainRepositoryDomain.saveProduct(product: product);
         if (response) {
-          print("complete");
           emit(SaveBusketDownload());
         } else {
-          print("error");
           emit(const SaveBusketError(message: errorServer));
         }
         await productBox.close();
