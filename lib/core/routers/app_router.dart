@@ -5,15 +5,15 @@ import 'app_router.gr.dart';
 
 @AutoRouterConfig()
 class AppRouter extends $AppRouter {
-  @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    final loggedIn = FirebaseAuth.instance.currentUser;
-    if (loggedIn != null || resolver.route.name == AuthEmptyRoute.name) {
-      resolver.next();
-    } else {
-      router.push(const AuthEmptyRoute());
-    }
-  }
+  // @override
+  // void onNavigation(NavigationResolver resolver, StackRouter router) async {
+  //   final loggedIn = FirebaseAuth.instance.currentUser;
+  //   if (loggedIn != null || resolver.route.name == AuthEmptyRoute.name) {
+  //     resolver.next();
+  //   } else {
+  //     router.push(const AuthEmptyRoute());
+  //   }
+  // }
 
   @override
   RouteType get defaultRouteType => const RouteType.adaptive();
@@ -70,8 +70,19 @@ class AppRouter extends $AppRouter {
                   ),
                 ]),
             AutoRoute(
+              page: GodEmptyRoute.page,
+              maintainState: true,
               path: "god_mode/",
-              page: GodRoute.page,
+              children: [
+                AutoRoute(
+                  path: "",
+                  page: GodRoute.page,
+                ),
+                AutoRoute(
+                  path: "god_product/",
+                  page: GodProductRoute.page,
+                ),
+              ],
             ),
           ],
         ),

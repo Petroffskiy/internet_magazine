@@ -30,11 +30,13 @@ class Application extends StatelessWidget {
             create: (context) =>
                 inj.inject<BusketBloc>()..add(const GetBusketData())),
         BlocProvider(create: (context) => inj.inject<MainCardBloc>()),
-        BlocProvider(create: (context) => inj.inject<AppBarBloc>()),
         BlocProvider(create: (context) => inj.inject<PersonalBloc>()),
-        BlocProvider(
-            create: (context) => inj.inject<BottomBloc>()..add(BottomData())),
-        BlocProvider(create: (context) => inj.inject<AppBarBloc>()),
+        // BlocProvider(create: (context) => inj.inject<AppBarBloc>()),
+        BlocProvider(create: (context) => AppBarBloc()),
+        BlocProvider(create: (context) => BottomBloc()),
+
+        // BlocProvider(
+        //     create: (context) => inj.inject<BottomBloc>()..add(BottomData())),
       ],
       child: MaterialApp.router(
         routerConfig: appRouter.config(),

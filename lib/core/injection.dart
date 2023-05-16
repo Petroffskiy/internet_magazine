@@ -14,6 +14,7 @@ import 'package:internet_magazine/feature/domain/repository/i_personal_repositor
 import 'package:internet_magazine/feature/presentation/auth/authenticate/bloc/authentication_bloc.dart';
 import 'package:internet_magazine/feature/presentation/auth/authorization/bloc/authorization_bloc.dart';
 import 'package:internet_magazine/feature/presentation/basket/bloc/busket/busket_bloc.dart';
+import 'package:internet_magazine/feature/presentation/god_mode/bloc/change_bloc/change_bloc.dart';
 import 'package:internet_magazine/feature/presentation/main_cards/bloc/main_card/main_card_bloc.dart';
 import 'package:internet_magazine/feature/presentation/main_cards/bloc/save_busket/save_busket_bloc.dart';
 import 'package:internet_magazine/feature/presentation/personal/bloc/personal_bloc/personal_bloc.dart';
@@ -21,9 +22,7 @@ import 'package:internet_magazine/feature/presentation/personal/bloc/personal_bl
 final inject = GetIt.instance;
 
 void init() {
-  inject.registerFactory(() => AppBarBloc());
-
-  inject.registerFactory(() => BottomBloc());
+  // inject.registerFactory(() => AppBarBloc());
   inject.registerFactory(() => AuthenticationBloc(inject()));
 
   inject.registerLazySingleton<IAuthRepositoryDomain>(
@@ -55,4 +54,8 @@ void init() {
 
   /// other blocs
   inject.registerFactory(() => SaveBusketBloc(inject()));
+
+  inject.registerFactory(() => BottomBloc());
+
+  inject.registerFactory(() => ChangeBloc());
 }
