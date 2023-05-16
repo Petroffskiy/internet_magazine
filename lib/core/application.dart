@@ -8,6 +8,7 @@ import 'package:internet_magazine/core/routers/app_router.dart';
 import 'package:internet_magazine/feature/presentation/auth/authenticate/bloc/authentication_bloc.dart';
 import 'package:internet_magazine/feature/presentation/auth/authorization/bloc/authorization_bloc.dart';
 import 'package:internet_magazine/feature/presentation/basket/bloc/busket/busket_bloc.dart';
+import 'package:internet_magazine/feature/presentation/god_mode/bloc/god_data/god_data_bloc.dart';
 import 'package:internet_magazine/feature/presentation/main_cards/bloc/main_card/main_card_bloc.dart';
 import 'package:internet_magazine/feature/presentation/personal/bloc/personal_bloc/personal_bloc.dart';
 
@@ -31,12 +32,12 @@ class Application extends StatelessWidget {
                 inj.inject<BusketBloc>()..add(const GetBusketData())),
         BlocProvider(create: (context) => inj.inject<MainCardBloc>()),
         BlocProvider(create: (context) => inj.inject<PersonalBloc>()),
-        // BlocProvider(create: (context) => inj.inject<AppBarBloc>()),
-        BlocProvider(create: (context) => AppBarBloc()),
-        BlocProvider(create: (context) => BottomBloc()),
-
-        // BlocProvider(
-        //     create: (context) => inj.inject<BottomBloc>()..add(BottomData())),
+        BlocProvider(create: (context) => inj.inject<AppBarBloc>()),
+        BlocProvider(
+            create: (context) =>
+                inj.inject<GodDataBloc>()..add(const GetData())),
+        BlocProvider(
+            create: (context) => inj.inject<BottomBloc>()..add(BottomData())),
       ],
       child: MaterialApp.router(
         routerConfig: appRouter.config(),
