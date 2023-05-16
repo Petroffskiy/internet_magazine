@@ -1,11 +1,14 @@
+import 'package:internet_magazine/feature/data/api/model/god/primary_god_products_model.dart';
 import 'package:internet_magazine/feature/data/api/service/connection_service.dart';
 import 'package:internet_magazine/feature/data/mapper/busket/busket_data_mappert.dart';
 import 'package:internet_magazine/feature/data/mapper/busket/save_product.mapper.dart';
+import 'package:internet_magazine/feature/data/mapper/god/god_data_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/main/list_gadgets_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/main/list_personal_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/personal/update_password_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/user/user_mapper.dart';
 import 'package:internet_magazine/feature/domain/model/busket/busket_data/primary_busket_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/god/primary_god_products_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/main/list_gadgets/primary_gadgets_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/main/list_product/primary_products_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/busket/save_product/save_product_model_domain.dart';
@@ -70,5 +73,10 @@ class ApiUtil {
   Future<PrimaryBusketModelDomain> getBusketData() async {
     final result = await _connectionService.getBusketData();
     return BusketDataMapper.fromJson(result);
+  }
+
+  Future<PrimaryGodProductsModelDomain> getGodData() async {
+    final listProduct = await _connectionService.getGodProduct();
+    return GodDataMapper.fromJson(listProduct);
   }
 }

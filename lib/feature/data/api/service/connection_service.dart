@@ -6,6 +6,7 @@ import 'package:internet_magazine/assets/project_strings.dart';
 import 'package:internet_magazine/core/endpoints/constance.dart';
 import 'package:internet_magazine/feature/data/api/model/busket/primary_busket_model.dart';
 import 'package:internet_magazine/feature/data/api/model/error/error_model.dart';
+import 'package:internet_magazine/feature/data/api/model/god/primary_god_products_model.dart';
 import 'package:internet_magazine/feature/data/api/model/main/gadgets/gadgets_model.dart';
 import 'package:internet_magazine/feature/data/api/model/main/gadgets/primary_gadgets_model.dart';
 import 'package:internet_magazine/feature/data/api/model/main/products/primary_product_model.dart';
@@ -21,6 +22,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'dart:developer' as dev;
 
 import 'package:internet_magazine/feature/data/api/request/save_product/save_product_body.dart';
+import 'package:internet_magazine/feature/domain/model/god/primary_god_products_model_domain.dart';
 
 class ConnectionService {
   Future<PrimaryUserModel> getData({
@@ -198,9 +200,9 @@ class ConnectionService {
           return PrimaryGadgetsModel.error(error);
         }
       } catch (e) {
-        ErrorModel error = const ErrorModel(
+        ErrorModel error = ErrorModel(
           code: 418,
-          message: "c",
+          message: e.toString(),
         );
         return PrimaryGadgetsModel.error(error);
       }
@@ -349,6 +351,53 @@ class ConnectionService {
         code: 418,
       );
       return PrimaryBusketModel.error(error);
+    }
+  }
+
+  Future<PrimaryGodProductsModel> getGodProduct() async {
+    const String endpoint = Constance.GADGETS;
+    final _database =
+        await FirebaseDatabase.instance.ref().child(endpoint).once();
+    if (FirebaseAuth.instance.currentUser != null) {
+      try {
+        if (_database.snapshot.value != null) {
+          final List<dynamic> valueMap =
+              jsonDecode(jsonEncode(_database.snapshot.value));
+          final List<String> listGadgets =
+              List.generate(valueMap.length, (index) => valueMap[index]['id']);
+          final PrimaryProductModel result =
+              await getProducts(finder: listGadgets);
+          return result.maybeWhen(
+            success: (success) {
+              return PrimaryGodProductsModel.success(success);
+            },
+            error: (error) {
+              return PrimaryGodProductsModel.error(error);
+            },
+            orElse: () {
+              const ErrorModel errorFunct =
+                  ErrorModel(message: "Ошибка от запроса", code: 404);
+              return const PrimaryGodProductsModel.error(errorFunct);
+            },
+          );
+        } else {
+          ErrorModel error = const ErrorModel(
+            code: 418,
+            message: "Шеф, всё пропало",
+          );
+          return PrimaryGodProductsModel.error(error);
+        }
+      } catch (e) {
+        ErrorModel error = ErrorModel(
+          code: 418,
+          message: e.toString(),
+        );
+        return PrimaryGodProductsModel.error(error);
+      }
+    } else {
+      const ErrorModel error = ErrorModel(
+          code: 418, message: "Каким-то образом пользователь не авторизован");
+      return const PrimaryGodProductsModel.error(error);
     }
   }
 }
