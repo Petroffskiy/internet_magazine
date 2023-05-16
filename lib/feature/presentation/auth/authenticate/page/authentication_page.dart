@@ -107,10 +107,10 @@ class AuthenticationPage extends StatelessWidget {
                           FlutterNativeSplash.remove();
                         } else if (state is AuthenticationSuccess) {
                           AutoRouter.of(context)
-                              .replace(CustomBottomBarRoute(role: state.role));
+                              .replace(const CustomBottomBarRoute());
                         } else if (state is AuthenticationDownload) {
                           AutoRouter.of(context)
-                              .replace(CustomBottomBarRoute(role: state.role));
+                              .replace(const CustomBottomBarRoute());
                         } else if (state is AuthenticationError) {
                           widgetSnackBar(context: context, text: state.message);
                         }

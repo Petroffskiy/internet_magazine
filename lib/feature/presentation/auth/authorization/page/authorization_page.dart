@@ -120,7 +120,7 @@ class AuthorizationPage extends StatelessWidget {
                       listener: (context, state) {
                         if (state is AuthorizationDownload) {
                           AutoRouter.of(context)
-                              .replace(CustomBottomBarRoute(role: state.role));
+                              .replace(const CustomBottomBarRoute());
                         } else if (state is AuthorizationError) {
                           widgetSnackBar(context: context, text: state.message);
                         }

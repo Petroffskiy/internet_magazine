@@ -2,9 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_magazine/assets/colors/colors.dart';
-import 'package:internet_magazine/core/bottom_bar/bloc/app_bar_bloc.dart';
+import 'package:internet_magazine/core/bottom_bar/bloc/app_bar/app_bar_bloc.dart';
 import 'package:internet_magazine/core/routers/app_router.gr.dart';
-import 'package:internet_magazine/feature/presentation/widgets/widget_stack_bar.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;

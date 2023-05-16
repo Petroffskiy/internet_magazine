@@ -285,7 +285,8 @@ class ConnectionService {
       final _database = FirebaseDatabase.instance.ref().child(endpoint);
       final User? _user = FirebaseAuth.instance.currentUser;
       if (_user != null) {
-        _database.child(_user.uid).push().set(product.toJson());
+        final DatabaseReference key = _database.child(_user.uid).push();
+        key.set(product.toJson());
         dev.log(
             name: "service save product", "save complete: ${_database.key}");
         return true;

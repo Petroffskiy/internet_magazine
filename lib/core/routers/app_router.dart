@@ -1,18 +1,29 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:internet_magazine/feature/presentation/main_cards/page/main_card_empty_page.dart';
-import 'package:internet_magazine/feature/presentation/personal/page/personal_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:internet_magazine/core/routers/auth_guards.dart';
 import 'app_router.gr.dart';
 
 @AutoRouterConfig()
 class AppRouter extends $AppRouter {
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) async {
+    final loggedIn = FirebaseAuth.instance.currentUser;
+    if (loggedIn != null || resolver.route.name == AuthEmptyRoute.name) {
+      resolver.next();
+    } else {
+      router.push(const AuthEmptyRoute());
+    }
+  }
+
   @override
   RouteType get defaultRouteType => const RouteType.adaptive();
 
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-          path: '/',
+          path: '/auth',
           maintainState: true,
+          keepHistory: false,
           page: AuthEmptyRoute.page,
           children: [
             AutoRoute(
@@ -27,8 +38,9 @@ class AppRouter extends $AppRouter {
           ],
         ),
         AutoRoute(
-          path: "/bottom_bar",
+          path: "/",
           page: CustomBottomBarRoute.page,
+          guards: [AuthGuards()],
           children: [
             AutoRoute(
               page: MainCardEmptyRoute.page,

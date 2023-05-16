@@ -1,9 +1,10 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_magazine/core/bottom_bar/bloc/bottom/bottom_bloc.dart';
 import 'package:internet_magazine/core/bottom_bar/model/navigation_model.dart';
 import 'package:internet_magazine/core/bottom_bar/page/custom_app_bar.dart';
-import 'package:internet_magazine/core/role/inherit_role.dart';
+
 import 'package:internet_magazine/core/role/user_role.dart';
 import 'package:internet_magazine/core/routers/app_router.gr.dart';
 
@@ -13,12 +14,13 @@ import "dart:developer" as dev;
 class CustomBottomBarPage extends StatelessWidget {
   const CustomBottomBarPage({
     super.key,
-    required this.role,
+    // required this.role,
   });
-  final UserRole role;
+  // final UserRole role;
 
   @override
   Widget build(BuildContext context) {
+    UserRole role = UserRole.user;
     return AutoTabsScaffold(
       routes: const [
         MainCardRoute(),
@@ -31,11 +33,15 @@ class CustomBottomBarPage extends StatelessWidget {
       ),
       extendBody: false,
       bottomNavigationBuilder: ((context, tabsRouter) {
-        dev.log(
-            name: "custom bottom",
-            "role: ${role.toString()} level: ${role.level}");
-        return InheritedRole(
-          role: role,
+        // dev.log(
+        //     name: "custom bottom",
+        // "role: ${role.toString()} level: ${role.level}");
+        return BlocListener<BottomBloc, BottomState>(
+          listener: (context, state) {
+            if (state is BottomDownload) {
+              role = state.role;
+            }
+          },
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(30.0),

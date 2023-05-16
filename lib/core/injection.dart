@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:internet_magazine/core/bottom_bar/bloc/app_bar_bloc.dart';
+import 'package:internet_magazine/core/bottom_bar/bloc/app_bar/app_bar_bloc.dart';
+import 'package:internet_magazine/core/bottom_bar/bloc/bottom/bottom_bloc.dart';
 import 'package:internet_magazine/feature/data/api/api_util.dart';
 import 'package:internet_magazine/feature/data/api/service/connection_service.dart';
 import 'package:internet_magazine/feature/data/repository/i_auth_repository.dart';
@@ -20,6 +21,9 @@ import 'package:internet_magazine/feature/presentation/personal/bloc/personal_bl
 final inject = GetIt.instance;
 
 void init() {
+  inject.registerFactory(() => AppBarBloc());
+
+  inject.registerFactory(() => BottomBloc());
   inject.registerFactory(() => AuthenticationBloc(inject()));
 
   inject.registerLazySingleton<IAuthRepositoryDomain>(
@@ -39,13 +43,13 @@ void init() {
       () => IPersonalRepository(inject()));
 
   inject.registerFactory(() => PersonalBloc(inject()));
-  inject.registerFactory(() => AppBarBloc());
   inject.registerLazySingleton(() => ConnectionService());
 
   inject.registerLazySingleton<ApiUtil>(() => ApiUtil(inject()));
 
   inject.registerLazySingleton(() => IBusketRepository(inject()));
-  inject.registerLazySingleton<IBusketRepositoryDomain>(() => IBusketRepository(inject()));
+  inject.registerLazySingleton<IBusketRepositoryDomain>(
+      () => IBusketRepository(inject()));
 
   inject.registerFactory(() => BusketBloc(inject()));
 

@@ -30,7 +30,9 @@ class BusketBloc extends Bloc<BusketEvent, BusketState> {
                 busketBox.values.toList();
             if (listProducts.isNotEmpty) {
               emit(BusketDownload(products: listProducts));
-            } else {}
+            } else {
+              emit(BusketEmpty());
+            }
           },
         );
       },

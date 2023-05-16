@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_magazine/assets/theme/custom_theme.dart';
-import 'package:internet_magazine/core/bottom_bar/bloc/app_bar_bloc.dart';
+import 'package:internet_magazine/core/bottom_bar/bloc/app_bar/app_bar_bloc.dart';
+import 'package:internet_magazine/core/bottom_bar/bloc/bottom/bottom_bloc.dart';
 import 'package:internet_magazine/core/routers/app_router.dart';
 import 'package:internet_magazine/feature/presentation/auth/authenticate/bloc/authentication_bloc.dart';
 import 'package:internet_magazine/feature/presentation/auth/authorization/bloc/authorization_bloc.dart';
@@ -25,10 +26,15 @@ class Application extends StatelessWidget {
             create: (context) =>
                 inj.inject<AuthenticationBloc>()..add(const CheckHive())),
         BlocProvider(create: (context) => inj.inject<AuthorizationBloc>()),
-        BlocProvider(create: (context) => inj.inject<BusketBloc>()..add(const GetBusketData())),
+        BlocProvider(
+            create: (context) =>
+                inj.inject<BusketBloc>()..add(const GetBusketData())),
         BlocProvider(create: (context) => inj.inject<MainCardBloc>()),
         BlocProvider(create: (context) => inj.inject<AppBarBloc>()),
         BlocProvider(create: (context) => inj.inject<PersonalBloc>()),
+        BlocProvider(
+            create: (context) => inj.inject<BottomBloc>()..add(BottomData())),
+        BlocProvider(create: (context) => inj.inject<AppBarBloc>()),
       ],
       child: MaterialApp.router(
         routerConfig: appRouter.config(),
