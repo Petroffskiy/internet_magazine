@@ -38,8 +38,7 @@ import 'package:internet_magazine/feature/presentation/personal/page/personal_pa
     as _i11;
 
 abstract class $AppRouter extends _i14.RootStackRouter {
-  $AppRouter([_i15.GlobalKey<_i15.NavigatorState>? navigatorKey])
-      : super();
+  $AppRouter([_i15.GlobalKey<_i15.NavigatorState>? navigatorKey]) : super();
 
   @override
   final Map<String, _i14.PageFactory> pagesMap = {

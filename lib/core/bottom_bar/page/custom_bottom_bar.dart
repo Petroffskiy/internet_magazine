@@ -12,34 +12,32 @@ import "dart:developer" as dev;
 
 @RoutePage()
 class CustomBottomBarPage extends StatelessWidget {
-  const CustomBottomBarPage({
+  CustomBottomBarPage({
     super.key,
     // required this.role,
   });
-  // final UserRole role;
+  UserRole role = UserRole.user;
+  // UserRole? role;
 
   @override
   Widget build(BuildContext context) {
-    UserRole role = UserRole.user;
     return AutoTabsScaffold(
       routes: const [
         MainCardRoute(),
         BusketRoute(),
         PersonalEmptyRoute(),
-        GodRoute(),
+        GodEmptyRoute(),
       ],
       appBarBuilder: (context, tabsRouter) => CustomAppBar(
         title: NavigationModel.labels[tabsRouter.activeIndex],
       ),
       extendBody: false,
       bottomNavigationBuilder: ((context, tabsRouter) {
-        // dev.log(
-        //     name: "custom bottom",
-        // "role: ${role.toString()} level: ${role.level}");
         return BlocListener<BottomBloc, BottomState>(
           listener: (context, state) {
             if (state is BottomDownload) {
               role = state.role;
+              dev.log(name: "bottom bar", role.toString());
             }
           },
           child: ClipRRect(
@@ -60,6 +58,23 @@ class CustomBottomBarPage extends StatelessWidget {
             ),
           ),
         );
+        // return ClipRRect(
+        //   borderRadius: const BorderRadius.only(
+        //     topLeft: Radius.circular(30.0),
+        //     topRight: Radius.circular(30.0),
+        //   ),
+        //   child: BottomNavigationBar(
+        //     type: BottomNavigationBarType.fixed,
+        //     currentIndex: tabsRouter.activeIndex,
+        //     onTap: tabsRouter.setActiveIndex,
+        //     items: role == UserRole.admin
+        //         ? NavigationModel.bottomNavigationItemsListAdmin
+        //         : NavigationModel.bottomNavigationItemsListUser,
+        //     selectedFontSize: 8,
+        //     unselectedFontSize: 8,
+        //     iconSize: 18,
+        //   ),
+        // );
       }),
     );
   }

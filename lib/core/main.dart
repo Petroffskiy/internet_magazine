@@ -15,11 +15,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await Hive.initFlutter();
+  inj.init();
   runApp(const Application());
   Hive.registerAdapter(User());
   Hive.registerAdapter(Busket());
-
-  await Hive.initFlutter();
-
-  inj.init();
 }
