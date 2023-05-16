@@ -1,6 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:internet_magazine/feature/domain/model/busket/busket_data/primary_busket_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/busket/save_product/save_product_model_domain.dart';
 import 'package:internet_magazine/feature/domain/repository/i_busket_repository.dart';
 
@@ -12,7 +13,26 @@ class BusketBloc extends Bloc<BusketEvent, BusketState> {
   BusketBloc(this._busketRepositoryDomain) : super(BusketInitial()) {
     on<GetBusketData>(
       (event, emit) async {
-        
+        emit(BusketLoading());
+        final PrimaryBusketModelDomain response =
+            await _busketRepositoryDomain.busketModel();
+        await response.maybeWhen(
+          success: (success) {
+            emit(BusketDownload(products: success));
+          },
+          error: (error) {
+            emit(BusketError(message: "${error.message}, ${error.code}"));
+          },
+          orElse: () async {
+            final busketBox =
+                await Hive.openBox<SaveProductModelDomain>("Busket");
+            final List<SaveProductModelDomain> listProducts =
+                busketBox.values.toList();
+            if (listProducts.isNotEmpty) {
+              emit(BusketDownload(products: listProducts));
+            } else {}
+          },
+        );
       },
     );
   }

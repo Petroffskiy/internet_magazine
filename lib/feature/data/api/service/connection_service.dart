@@ -306,18 +306,27 @@ class ConnectionService {
       final _database = FirebaseDatabase.instance.ref().child(endpoint);
       final User? _user = FirebaseAuth.instance.currentUser;
       if (_user != null) {
-        final data = await _database.child(_user.uid).once();
+        final dynamic data = await _database.child(_user.uid).once();
+
         if (data.snapshot.value != null) {
-          final List<dynamic> valueList = data.snapshot.value as List<dynamic>;
-          final List<Map<String, dynamic>> valueMapList = valueList
-              .map((value) => Map<String, dynamic>.from(value))
-              .toList();
-          final List<SaveProductBody> result = List.generate(
-            valueMapList.length,
-            (index) => SaveProductBody.fromJson(
-              valueMapList[index],
-            ),
-          );
+          final List<SaveProductBody> result = [];
+          data.snapshot.value.forEach((key, value) {
+            final String code = key;
+            dev.log(name: "sevice busket", "this is key: $key");
+            final List<dynamic> valueList =
+                data.snapshot.value is List ? value : [];
+            final List<Map<String, dynamic>> valueMapList = valueList
+                .map((value) => Map<String, dynamic>.from(value))
+                .toList();
+            result.add(SaveProductBody.fromJson(value));
+            List.generate(
+              valueMapList.length,
+              (index) => SaveProductBody.fromJson(
+                valueMapList[index],
+              ),
+            );
+          });
+
           return PrimaryBusketModel.success(result);
         } else {
           const ErrorModel error = ErrorModel(

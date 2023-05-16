@@ -21,7 +21,7 @@ class BusketError extends BusketState {
 }
 
 class BusketDownload extends BusketState {
-  final List<SaveProductModelDomain>? products;
+  final List<SaveProductModelDomain> products;
 
   const BusketDownload({required this.products});
 
@@ -34,3 +34,5 @@ class BusketDownload extends BusketState {
     return BusketDownload(products: products ?? this.products);
   }
 }
+
+class BusketEmpty extends BusketState {}
