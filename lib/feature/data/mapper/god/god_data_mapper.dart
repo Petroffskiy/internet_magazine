@@ -1,7 +1,7 @@
 import 'package:internet_magazine/assets/project_strings.dart';
-import 'package:internet_magazine/feature/data/api/model/god/primary_god_products_model.dart';
+import 'package:internet_magazine/feature/data/api/model/god/product/primary_god_products_model.dart';
 import 'package:internet_magazine/feature/domain/model/error_domain/error_model_domain.dart';
-import 'package:internet_magazine/feature/domain/model/god/primary_god_products_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/god/product/primary_god_products_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/main/list_product/product_model_domain.dart';
 
 class GodDataMapper {
