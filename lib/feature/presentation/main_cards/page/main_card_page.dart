@@ -53,8 +53,8 @@ class MainCardPage extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           SizedBox(
-                                            width: 100,
-                                            height: 200,
+                                            width: 70,
+                                            height: 140,
                                             child: imageNetwork(
                                               image:
                                                   state.listGadget[index].image,
