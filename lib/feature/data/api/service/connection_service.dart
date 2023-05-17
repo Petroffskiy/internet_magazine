@@ -6,7 +6,8 @@ import 'package:internet_magazine/assets/project_strings.dart';
 import 'package:internet_magazine/core/endpoints/constance.dart';
 import 'package:internet_magazine/feature/data/api/model/busket/primary_busket_model.dart';
 import 'package:internet_magazine/feature/data/api/model/error/error_model.dart';
-import 'package:internet_magazine/feature/data/api/model/god/primary_god_products_model.dart';
+import 'package:internet_magazine/feature/data/api/model/god/product/primary_god_gadgets_model.dart';
+import 'package:internet_magazine/feature/data/api/model/god/product/primary_god_products_model.dart';
 import 'package:internet_magazine/feature/data/api/model/main/gadgets/gadgets_model.dart';
 import 'package:internet_magazine/feature/data/api/model/main/gadgets/primary_gadgets_model.dart';
 import 'package:internet_magazine/feature/data/api/model/main/products/primary_product_model.dart';
@@ -22,7 +23,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'dart:developer' as dev;
 
 import 'package:internet_magazine/feature/data/api/request/save_product/save_product_body.dart';
-import 'package:internet_magazine/feature/domain/model/god/primary_god_products_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/god/product/primary_god_products_model_domain.dart';
 
 class ConnectionService {
   Future<PrimaryUserModel> getData({
@@ -398,6 +399,38 @@ class ConnectionService {
       const ErrorModel error = ErrorModel(
           code: 418, message: "Каким-то образом пользователь не авторизован");
       return const PrimaryGodProductsModel.error(error);
+    }
+  }
+  Future<PrimaryGodGadgetsModel> getGodGadgets() async {
+    const String endpoint = Constance.GADGETS;
+    final _database =
+        await FirebaseDatabase.instance.ref().child(endpoint).once();
+    if (FirebaseAuth.instance.currentUser != null) {
+      try {
+        if (_database.snapshot.value != null) {
+          final List<dynamic> valueMap =
+              jsonDecode(jsonEncode(_database.snapshot.value));
+          dev.log(name: "sercive gadgets", "$valueMap");
+          final List<GadgetsModel> listGadgets = List.generate(valueMap.length,
+              (index) => GadgetsModel.fromJson(valueMap[index]));
+          return PrimaryGodGadgetsModel.success(listGadgets);
+        } else {
+          ErrorModel error = const ErrorModel(
+            code: 418,
+            message: "Шеф, всё пропало",
+          );
+          return PrimaryGodGadgetsModel.error(error);
+        }
+      } catch (e) {
+        ErrorModel error = ErrorModel(
+          code: 418,
+          message: e.toString(),
+        );
+        return PrimaryGodGadgetsModel.error(error);
+      }
+    } else {
+      return const PrimaryGodGadgetsModel.error(ErrorModel(
+          code: 418, message: "Каким-то образом пользователь не авторизован"));
     }
   }
 }
