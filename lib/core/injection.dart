@@ -16,7 +16,7 @@ import 'package:internet_magazine/feature/domain/repository/i_personal_repositor
 import 'package:internet_magazine/feature/presentation/auth/authenticate/bloc/authentication_bloc.dart';
 import 'package:internet_magazine/feature/presentation/auth/authorization/bloc/authorization_bloc.dart';
 import 'package:internet_magazine/feature/presentation/basket/bloc/busket/busket_bloc.dart';
-import 'package:internet_magazine/feature/presentation/god_mode/bloc/bloc/parameter_product_bloc.dart';
+import 'package:internet_magazine/feature/presentation/god_mode/bloc/parameter_product_bloc/parameter_product_bloc.dart';
 import 'package:internet_magazine/feature/presentation/god_mode/bloc/change_bloc/change_bloc.dart';
 import 'package:internet_magazine/feature/presentation/god_mode/bloc/god_data/god_data_bloc.dart';
 import 'package:internet_magazine/feature/presentation/god_mode/bloc/god_product/god_product_bloc.dart';
