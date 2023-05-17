@@ -8,6 +8,12 @@
 		<string>Internet Magazine</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
+		<key>NSCameraUsageDescription</key>
+		<string>Для доступа к камере необходимо разрешение.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Для доступа к фото и видео необходимо разрешение.</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>Для сохранения фото и видео в вашем альбоме необходимо разрешение.</string>
 		<key>CFBundleIdentifier</key>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 		<key>CFBundleInfoDictionaryVersion</key>
