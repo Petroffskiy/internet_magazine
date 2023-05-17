@@ -82,6 +82,10 @@ class AppRouter extends $AppRouter {
                   path: "god_product/",
                   page: GodProductRoute.page,
                 ),
+                AutoRoute(
+                  path: "god_new_product/",
+                  page: GodNewProductRoute.page,
+                ),
               ],
             ),
           ],
