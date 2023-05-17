@@ -16,8 +16,12 @@ import 'package:internet_magazine/feature/domain/repository/i_personal_repositor
 import 'package:internet_magazine/feature/presentation/auth/authenticate/bloc/authentication_bloc.dart';
 import 'package:internet_magazine/feature/presentation/auth/authorization/bloc/authorization_bloc.dart';
 import 'package:internet_magazine/feature/presentation/basket/bloc/busket/busket_bloc.dart';
+import 'package:internet_magazine/feature/presentation/god_mode/bloc/bloc/parameter_product_bloc.dart';
 import 'package:internet_magazine/feature/presentation/god_mode/bloc/change_bloc/change_bloc.dart';
 import 'package:internet_magazine/feature/presentation/god_mode/bloc/god_data/god_data_bloc.dart';
+import 'package:internet_magazine/feature/presentation/god_mode/bloc/god_product/god_product_bloc.dart';
+import 'package:internet_magazine/feature/presentation/god_mode/bloc/image_picker/image_picker_bloc.dart';
+import 'package:internet_magazine/feature/presentation/god_mode/bloc/select_category/select_category_bloc.dart';
 import 'package:internet_magazine/feature/presentation/main_cards/bloc/main_card/main_card_bloc.dart';
 import 'package:internet_magazine/feature/presentation/main_cards/bloc/save_busket/save_busket_bloc.dart';
 import 'package:internet_magazine/feature/presentation/personal/bloc/personal_bloc/personal_bloc.dart';
@@ -58,6 +62,7 @@ void init() {
   inject.registerLazySingleton(() => IGodRepository(inject()));
   inject.registerLazySingleton<IGodRepositoryDomain>(
       () => IGodRepository(inject()));
+  inject.registerFactory(() => GodProductBloc(inject()));
 
   /// other blocs
   inject.registerFactory(() => SaveBusketBloc(inject()));
@@ -67,4 +72,9 @@ void init() {
   inject.registerFactory(() => BottomBloc());
 
   inject.registerFactory(() => ChangeBloc());
+  inject.registerFactory(() => CategoryBloc());
+  inject.registerFactory(() => ImagePickerBloc());
+  inject.registerFactory(() => ParameterProductBloc());
+
+  
 }
