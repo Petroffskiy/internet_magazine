@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:internet_magazine/feature/domain/model/god/create/data_model_domain.dart';
+
 
 part 'parameter_product_event.dart';
 part 'parameter_product_state.dart';

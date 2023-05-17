@@ -13,5 +13,6 @@ class SaveProductModelDomain with _$SaveProductModelDomain {
     @HiveField(2) required int count,
     @HiveField(3) required int price,
     @HiveField(4) required bool isSelected,
+    @HiveField(5) required String id,
   }) = _SaveProductModelDomain;
 }

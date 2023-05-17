@@ -2,4 +2,6 @@ import 'package:internet_magazine/feature/domain/model/busket/busket_data/primar
 
 abstract class IBusketRepositoryDomain {
   Future<PrimaryBusketModelDomain> busketModel();
+
+  void then(Null Function(dynamic data) param0) {}
 }

@@ -14,19 +14,15 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SaveProductBody _$SaveProductBodyFromJson(Map<String, dynamic> json) {
-  return _SaveProductBody.fromJson(json);
-}
-
 /// @nodoc
 mixin _$SaveProductBody {
+  String? get id => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
   bool get selected => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SaveProductBodyCopyWith<SaveProductBody> get copyWith =>
       throw _privateConstructorUsedError;
@@ -38,7 +34,13 @@ abstract class $SaveProductBodyCopyWith<$Res> {
           SaveProductBody value, $Res Function(SaveProductBody) then) =
       _$SaveProductBodyCopyWithImpl<$Res, SaveProductBody>;
   @useResult
-  $Res call({String image, String name, int count, int price, bool selected});
+  $Res call(
+      {String? id,
+      String image,
+      String name,
+      int count,
+      int price,
+      bool selected});
 }
 
 /// @nodoc
@@ -54,6 +56,7 @@ class _$SaveProductBodyCopyWithImpl<$Res, $Val extends SaveProductBody>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? image = null,
     Object? name = null,
     Object? count = null,
@@ -61,6 +64,10 @@ class _$SaveProductBodyCopyWithImpl<$Res, $Val extends SaveProductBody>
     Object? selected = null,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -93,7 +100,13 @@ abstract class _$$_SaveProductBodyCopyWith<$Res>
       __$$_SaveProductBodyCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String image, String name, int count, int price, bool selected});
+  $Res call(
+      {String? id,
+      String image,
+      String name,
+      int count,
+      int price,
+      bool selected});
 }
 
 /// @nodoc
@@ -107,6 +120,7 @@ class __$$_SaveProductBodyCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? image = null,
     Object? name = null,
     Object? count = null,
@@ -114,6 +128,10 @@ class __$$_SaveProductBodyCopyWithImpl<$Res>
     Object? selected = null,
   }) {
     return _then(_$_SaveProductBody(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -139,18 +157,18 @@ class __$$_SaveProductBodyCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_SaveProductBody implements _SaveProductBody {
   const _$_SaveProductBody(
-      {required this.image,
+      {required this.id,
+      required this.image,
       required this.name,
       required this.count,
       required this.price,
       required this.selected});
 
-  factory _$_SaveProductBody.fromJson(Map<String, dynamic> json) =>
-      _$$_SaveProductBodyFromJson(json);
-
+  @override
+  final String? id;
   @override
   final String image;
   @override
@@ -164,7 +182,7 @@ class _$_SaveProductBody implements _SaveProductBody {
 
   @override
   String toString() {
-    return 'SaveProductBody(image: $image, name: $name, count: $count, price: $price, selected: $selected)';
+    return 'SaveProductBody(id: $id, image: $image, name: $name, count: $count, price: $price, selected: $selected)';
   }
 
   @override
@@ -172,6 +190,7 @@ class _$_SaveProductBody implements _SaveProductBody {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SaveProductBody &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.count, count) || other.count == count) &&
@@ -180,36 +199,34 @@ class _$_SaveProductBody implements _SaveProductBody {
                 other.selected == selected));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, image, name, count, price, selected);
+      Object.hash(runtimeType, id, image, name, count, price, selected);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_SaveProductBodyCopyWith<_$_SaveProductBody> get copyWith =>
       __$$_SaveProductBodyCopyWithImpl<_$_SaveProductBody>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_SaveProductBodyToJson(
-      this,
-    );
-  }
+      
+        @override
+        Map<String, dynamic> toJson() {
+          // TODO: implement toJson
+          throw UnimplementedError();
+        }
 }
 
 abstract class _SaveProductBody implements SaveProductBody {
   const factory _SaveProductBody(
-      {required final String image,
+      {required final String? id,
+      required final String image,
       required final String name,
       required final int count,
       required final int price,
       required final bool selected}) = _$_SaveProductBody;
 
-  factory _SaveProductBody.fromJson(Map<String, dynamic> json) =
-      _$_SaveProductBody.fromJson;
-
+  @override
+  String? get id;
   @override
   String get image;
   @override

@@ -17,6 +17,7 @@ class BusketPage extends StatelessWidget {
         builder: (context, state) {
           if (state is BusketDownload) {
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 GestureDetector(
                   onTap: () {
@@ -35,31 +36,31 @@ class BusketPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                ListView.builder(
-                  itemCount: state.products.length,
-                  itemBuilder: (context, index) {
-                    final product = state.products[index];
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Checkbox(
-                              value: product.isSelected,
-                              onChanged: (bool? value) {
-                                // product.isSelected = value!;
-                              },
-                            ),
-                            Image.network(
-                              product.image,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Expanded(
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: state.products.length,
+                    itemBuilder: (context, index) {
+                      final product = state.products[index];
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Checkbox(
+                                value: product.isSelected,
+                                onChanged: (bool? value) {
+                                  // product.isSelected = value!;
+                                },
+                              ),
+                              Image.network(
+                                product.image,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -97,12 +98,12 @@ class BusketPage extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 )
               ],
             );

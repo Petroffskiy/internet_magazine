@@ -21,7 +21,7 @@ class SaveBusketBloc extends Bloc<SaveBusketEvent, SaveBusketState> {
           image: event.product.image,
           name: event.product.name,
           price: event.product.price,
-          isSelected: false,
+          isSelected: false, id: '',
         );
         final productBox = await Hive.openBox<SaveProductModelDomain>("Busket");
         productBox.put(product.name, product);

@@ -14,19 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-PrimaryBusketModel _$PrimaryBusketModelFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'success':
-      return Success.fromJson(json);
-    case 'error':
-      return Error.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'PrimaryBusketModel',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
-}
-
 /// @nodoc
 mixin _$PrimaryBusketModel {
   @optionalTypeArgs
@@ -67,7 +54,6 @@ mixin _$PrimaryBusketModel {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -118,15 +104,10 @@ class __$$SuccessCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$Success implements Success {
-  const _$Success(final List<SaveProductBody> listProduct,
-      {final String? $type})
-      : _listProduct = listProduct,
-        $type = $type ?? 'success';
 
-  factory _$Success.fromJson(Map<String, dynamic> json) =>
-      _$$SuccessFromJson(json);
+class _$Success implements Success {
+  const _$Success(final List<SaveProductBody> listProduct)
+      : _listProduct = listProduct;
 
   final List<SaveProductBody> _listProduct;
   @override
@@ -135,9 +116,6 @@ class _$Success implements Success {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_listProduct);
   }
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
 
   @override
   String toString() {
@@ -153,7 +131,6 @@ class _$Success implements Success {
                 .equals(other._listProduct, _listProduct));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_listProduct));
@@ -225,19 +202,10 @@ class _$Success implements Success {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SuccessToJson(
-      this,
-    );
-  }
 }
 
 abstract class Success implements PrimaryBusketModel {
   const factory Success(final List<SaveProductBody> listProduct) = _$Success;
-
-  factory Success.fromJson(Map<String, dynamic> json) = _$Success.fromJson;
 
   List<SaveProductBody> get listProduct;
   @JsonKey(ignore: true)
@@ -285,17 +253,12 @@ class __$$ErrorCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$Error implements Error {
-  const _$Error(this.error, {final String? $type}) : $type = $type ?? 'error';
 
-  factory _$Error.fromJson(Map<String, dynamic> json) => _$$ErrorFromJson(json);
+class _$Error implements Error {
+  const _$Error(this.error);
 
   @override
   final ErrorModel error;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
 
   @override
   String toString() {
@@ -310,7 +273,6 @@ class _$Error implements Error {
             (identical(other.error, error) || other.error == error));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
@@ -381,19 +343,10 @@ class _$Error implements Error {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ErrorToJson(
-      this,
-    );
-  }
 }
 
 abstract class Error implements PrimaryBusketModel {
   const factory Error(final ErrorModel error) = _$Error;
-
-  factory Error.fromJson(Map<String, dynamic> json) = _$Error.fromJson;
 
   ErrorModel get error;
   @JsonKey(ignore: true)

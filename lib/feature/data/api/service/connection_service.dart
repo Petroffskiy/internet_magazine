@@ -314,23 +314,19 @@ class ConnectionService {
 
         if (data.snapshot.value != null) {
           final List<SaveProductBody> result = [];
-          data.snapshot.value.forEach((key, value) {
-            final String code = key;
-            dev.log(name: "sevice busket", "this is key: $key");
-            final List<dynamic> valueList =
-                data.snapshot.value is List ? value : [];
-            final List<Map<String, dynamic>> valueMapList = valueList
-                .map((value) => Map<String, dynamic>.from(value))
-                .toList();
-            result.add(SaveProductBody.fromJson(value));
-            List.generate(
-              valueMapList.length,
-              (index) => SaveProductBody.fromJson(
-                valueMapList[index],
-              ),
-            );
-          });
+          dev.log(name: "service busket", "befor forEach");
 
+          data.snapshot.value.forEach((key, value) {
+            dev.log(name: "service busket", "befor if in forEach");
+            dev.log(name: "service busket", "value: ${value['name']}");
+
+            // if (value is Map<String, dynamic>) {
+            dev.log(name: "service busket", "key: $key, value: $value");
+            final SaveProductBody product =
+                SaveProductBody.fromJson(value, key);
+            result.add(product);
+            // }
+          });
           return PrimaryBusketModel.success(result);
         } else {
           const ErrorModel error = ErrorModel(
@@ -401,6 +397,7 @@ class ConnectionService {
       return const PrimaryGodProductsModel.error(error);
     }
   }
+
   Future<PrimaryGodGadgetsModel> getGodGadgets() async {
     const String endpoint = Constance.GADGETS;
     final _database =

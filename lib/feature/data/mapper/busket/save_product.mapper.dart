@@ -8,7 +8,7 @@ class SaveProductMapper {
       name: product.name,
       count: product.count,
       price: product.price,
-      selected: product.isSelected
+      selected: product.isSelected, id: ''
     );
   }
 }

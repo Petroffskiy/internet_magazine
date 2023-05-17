@@ -22,13 +22,14 @@ class Busket extends TypeAdapter<SaveProductModelDomain> {
       count: fields[2] as int,
       price: fields[3] as int,
       isSelected: fields[4] as bool,
+      id: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, SaveProductModelDomain obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.image)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class Busket extends TypeAdapter<SaveProductModelDomain> {
       ..writeByte(3)
       ..write(obj.price)
       ..writeByte(4)
-      ..write(obj.isSelected);
+      ..write(obj.isSelected)
+      ..writeByte(5)
+      ..write(obj.id);
   }
 
   @override

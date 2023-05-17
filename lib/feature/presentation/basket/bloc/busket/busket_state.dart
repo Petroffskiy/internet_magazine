@@ -26,7 +26,7 @@ class BusketDownload extends BusketState {
   const BusketDownload({required this.products});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [products];
 
   BusketDownload copyWith({
     required List<SaveProductModelDomain>? products,

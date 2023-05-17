@@ -26,6 +26,8 @@ mixin _$SaveProductModelDomain {
   int get price => throw _privateConstructorUsedError;
   @HiveField(4)
   bool get isSelected => throw _privateConstructorUsedError;
+  @HiveField(5)
+  String get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SaveProductModelDomainCopyWith<SaveProductModelDomain> get copyWith =>
@@ -43,7 +45,8 @@ abstract class $SaveProductModelDomainCopyWith<$Res> {
       @HiveField(1) String name,
       @HiveField(2) int count,
       @HiveField(3) int price,
-      @HiveField(4) bool isSelected});
+      @HiveField(4) bool isSelected,
+      @HiveField(5) String id});
 }
 
 /// @nodoc
@@ -65,6 +68,7 @@ class _$SaveProductModelDomainCopyWithImpl<$Res,
     Object? count = null,
     Object? price = null,
     Object? isSelected = null,
+    Object? id = null,
   }) {
     return _then(_value.copyWith(
       image: null == image
@@ -87,6 +91,10 @@ class _$SaveProductModelDomainCopyWithImpl<$Res,
           ? _value.isSelected
           : isSelected // ignore: cast_nullable_to_non_nullable
               as bool,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -104,7 +112,8 @@ abstract class _$$_SaveProductModelDomainCopyWith<$Res>
       @HiveField(1) String name,
       @HiveField(2) int count,
       @HiveField(3) int price,
-      @HiveField(4) bool isSelected});
+      @HiveField(4) bool isSelected,
+      @HiveField(5) String id});
 }
 
 /// @nodoc
@@ -124,6 +133,7 @@ class __$$_SaveProductModelDomainCopyWithImpl<$Res>
     Object? count = null,
     Object? price = null,
     Object? isSelected = null,
+    Object? id = null,
   }) {
     return _then(_$_SaveProductModelDomain(
       image: null == image
@@ -146,6 +156,10 @@ class __$$_SaveProductModelDomainCopyWithImpl<$Res>
           ? _value.isSelected
           : isSelected // ignore: cast_nullable_to_non_nullable
               as bool,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -158,7 +172,8 @@ class _$_SaveProductModelDomain implements _SaveProductModelDomain {
       @HiveField(1) required this.name,
       @HiveField(2) required this.count,
       @HiveField(3) required this.price,
-      @HiveField(4) required this.isSelected});
+      @HiveField(4) required this.isSelected,
+      @HiveField(5) required this.id});
 
   @override
   @HiveField(0)
@@ -175,10 +190,13 @@ class _$_SaveProductModelDomain implements _SaveProductModelDomain {
   @override
   @HiveField(4)
   final bool isSelected;
+  @override
+  @HiveField(5)
+  final String id;
 
   @override
   String toString() {
-    return 'SaveProductModelDomain(image: $image, name: $name, count: $count, price: $price, isSelected: $isSelected)';
+    return 'SaveProductModelDomain(image: $image, name: $name, count: $count, price: $price, isSelected: $isSelected, id: $id)';
   }
 
   @override
@@ -191,12 +209,13 @@ class _$_SaveProductModelDomain implements _SaveProductModelDomain {
             (identical(other.count, count) || other.count == count) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.isSelected, isSelected) ||
-                other.isSelected == isSelected));
+                other.isSelected == isSelected) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, image, name, count, price, isSelected);
+      Object.hash(runtimeType, image, name, count, price, isSelected, id);
 
   @JsonKey(ignore: true)
   @override
@@ -208,12 +227,12 @@ class _$_SaveProductModelDomain implements _SaveProductModelDomain {
 
 abstract class _SaveProductModelDomain implements SaveProductModelDomain {
   const factory _SaveProductModelDomain(
-          {@HiveField(0) required final String image,
-          @HiveField(1) required final String name,
-          @HiveField(2) required final int count,
-          @HiveField(3) required final int price,
-          @HiveField(4) required final bool isSelected}) =
-      _$_SaveProductModelDomain;
+      {@HiveField(0) required final String image,
+      @HiveField(1) required final String name,
+      @HiveField(2) required final int count,
+      @HiveField(3) required final int price,
+      @HiveField(4) required final bool isSelected,
+      @HiveField(5) required final String id}) = _$_SaveProductModelDomain;
 
   @override
   @HiveField(0)
@@ -230,6 +249,9 @@ abstract class _SaveProductModelDomain implements SaveProductModelDomain {
   @override
   @HiveField(4)
   bool get isSelected;
+  @override
+  @HiveField(5)
+  String get id;
   @override
   @JsonKey(ignore: true)
   _$$_SaveProductModelDomainCopyWith<_$_SaveProductModelDomain> get copyWith =>
