@@ -11,4 +11,9 @@ class IBusketRepository extends IBusketRepositoryDomain {
   Future<PrimaryBusketModelDomain> busketModel() {
     return _apiUtil.getBusketData();
   }
+
+  @override
+  Future<bool> deteleFromBusket({required String index}) {
+    return _apiUtil.deleteFromBusket(index: index);
+  }
 }

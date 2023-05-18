@@ -23,9 +23,9 @@ class BusketBloc extends Bloc<BusketEvent, BusketState> {
         await response.maybeWhen(
           success: (success) {
             for (var element in success) {
-                dev.log(name: "bloc busket", "success: ${success.first}");
-                dev.log(name: "bloc busket", "value: $element");
-              }
+              dev.log(name: "bloc busket", "success: ${success.first}");
+              dev.log(name: "bloc busket", "value: $element");
+            }
 
             emit(BusketDownload(products: success));
           },
@@ -48,6 +48,13 @@ class BusketBloc extends Bloc<BusketEvent, BusketState> {
             }
           },
         );
+      },
+    );
+
+    on<DeleteBusketData>(
+      (event, emit) async {
+        final bool status =
+            await _busketRepositoryDomain.deteleFromBusket(index: event.index);
       },
     );
   }

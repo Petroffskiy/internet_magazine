@@ -281,7 +281,7 @@ class ConnectionService {
   }
 
   Future<bool> saveProduct({required SaveProductBody product}) async {
-    const String endpoint = Constance.SAVEBUSKET;
+    const String endpoint = Constance.BUSKET;
     await Firebase.initializeApp();
     try {
       dev.log(name: "service save product", "save start");
@@ -303,7 +303,7 @@ class ConnectionService {
   }
 
   Future<PrimaryBusketModel> getBusketData() async {
-    const String endpoint = Constance.SAVEBUSKET;
+    const String endpoint = Constance.BUSKET;
     await Firebase.initializeApp();
     try {
       dev.log(name: "service busket data", "busket data start");
@@ -320,12 +320,10 @@ class ConnectionService {
             dev.log(name: "service busket", "befor if in forEach");
             dev.log(name: "service busket", "value: ${value['name']}");
 
-            // if (value is Map<String, dynamic>) {
             dev.log(name: "service busket", "key: $key, value: $value");
             final SaveProductBody product =
                 SaveProductBody.fromJson(value, key);
             result.add(product);
-            // }
           });
           return PrimaryBusketModel.success(result);
         } else {
@@ -348,6 +346,25 @@ class ConnectionService {
         code: 418,
       );
       return PrimaryBusketModel.error(error);
+    }
+  }
+
+  Future<bool> deleteFromBusket({required String index}) async {
+    const String endpoint = Constance.BUSKET;
+    await Firebase.initializeApp();
+    try {
+      final _dataBase = FirebaseDatabase.instance.ref().child(endpoint);
+      final User? userId = FirebaseAuth.instance.currentUser;
+      if (userId != null) {
+        final data = await _dataBase.child(userId.uid).child(index).remove();
+        return true;
+      } else {
+        dev.log(name: "service error", "deleteFromBusket emty user");
+        return false;
+      }
+    } catch (e) {
+      dev.log(name: "service error", "catch: ${e.toString()}");
+      return false;
     }
   }
 

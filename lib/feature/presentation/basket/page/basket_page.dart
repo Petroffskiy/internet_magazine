@@ -17,12 +17,23 @@ class BusketPage extends StatelessWidget {
       create: (_) => inj.inject<ListViewCheckBloc>(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20.0),
-        child: BlocBuilder<BusketBloc, BusketState>(
+        child: BlocConsumer<BusketBloc, BusketState>(
+          listener: (context, state) {
+            if (state is BusketDownload) {
+              context.read<ListViewCheckBloc>().add(
+                    SelectAllEvent(
+                      lengthList: state.products.length,
+                    ),
+                  );
+            }
+          },
           builder: (context, state) {
             if (state is BusketDownload) {
-              context
-                  .read<ListViewCheckBloc>()
-                  .add(SelectAllEvent(lengthList: state.products.length));
+              context.read<ListViewCheckBloc>().add(
+                    SelectAllEvent(
+                      lengthList: state.products.length,
+                    ),
+                  );
               return BlocBuilder<ListViewCheckBloc, ListViewCheckState>(
                 builder: (context, check) {
                   if (check is ListLoaded) {
@@ -42,14 +53,7 @@ class BusketPage extends StatelessWidget {
                                   value: allCheck,
                                   onChanged: (bool? value) {
                                     allCheck = !value!;
-                                    //  allCheck = !context
-                                    //     .read<ListViewCheckBloc>()
-                                    //     .check
-                                    //     .every((element) => element);
-                                    // allCheck = 
-                                    // context
-                                    //     .read<ListViewCheckBloc>()
-                                    //     .add(ToggleCheckboxEvent(allCheck));
+                                    
                                   },
                                 ),
                                 const Text(changeAll),
@@ -61,6 +65,11 @@ class BusketPage extends StatelessWidget {
                           child: ListView.builder(
                             itemCount: state.products.length,
                             itemBuilder: (context, index) {
+                              context.read<ListViewCheckBloc>().add(
+                                    SelectAllEvent(
+                                      lengthList: state.products.length,
+                                    ),
+                                  );
                               final isSelected = check.checkboxes[index];
                               final product = state.products[index];
                               return Card(
@@ -121,6 +130,12 @@ class BusketPage extends StatelessWidget {
                                               child: GestureDetector(
                                                 onTap: () {
                                                   //TODO: delete
+                                                  context
+                                                      .read<BusketBloc>()
+                                                      .add(DeleteBusketData(
+                                                          index: product.id));
+                                                  context.read<BusketBloc>().add(
+                                                      const GetBusketData());
                                                 },
                                                 child: Container(
                                                     decoration: BoxDecoration(
@@ -134,7 +149,7 @@ class BusketPage extends StatelessWidget {
                                                       padding:
                                                           EdgeInsets.all(10.0),
                                                       child: Text(
-                                                          'Удалить из корзину'),
+                                                          'Удалить из корзины'),
                                                     )),
                                               ),
                                             ),

@@ -12,3 +12,12 @@ class GetBusketData extends BusketEvent {
   @override
   List<Object> get props => [];
 }
+
+class DeleteBusketData extends BusketEvent {
+  final String index;
+
+  const DeleteBusketData({required this.index});
+
+  @override
+  List<Object> get props => [index];
+}

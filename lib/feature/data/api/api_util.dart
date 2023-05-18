@@ -76,6 +76,11 @@ class ApiUtil {
     return BusketDataMapper.fromJson(result);
   }
 
+  Future<bool> deleteFromBusket({required String index}) async {
+    final status = await _connectionService.deleteFromBusket(index: index);
+    return status;
+  }
+
   Future<PrimaryGodProductsModelDomain> getGodData() async {
     final listProduct = await _connectionService.getGodProduct();
     return GodDataMapper.fromJson(listProduct);
