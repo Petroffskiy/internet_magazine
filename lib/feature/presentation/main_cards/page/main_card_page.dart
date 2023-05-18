@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:internet_magazine/assets/colors/colors.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
+import 'package:internet_magazine/core/bottom_bar/bloc/bottom/bottom_bloc.dart';
 import 'package:internet_magazine/core/routers/app_router.gr.dart';
 import 'package:internet_magazine/feature/presentation/basket/bloc/busket/busket_bloc.dart';
 import 'package:internet_magazine/feature/presentation/main_cards/bloc/main_card/main_card_bloc.dart';
@@ -29,6 +30,7 @@ class MainCardPage extends StatelessWidget {
                 child: BlocBuilder<MainCardBloc, MainCardState>(
                   builder: (context, state) {
                     FlutterNativeSplash.remove();
+                    context.read<BottomBloc>().add(BottomData());
                     if (state is MainCardDownloaded) {
                       return Column(
                         children: [

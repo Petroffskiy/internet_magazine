@@ -13,14 +13,15 @@ import "dart:developer" as dev;
 part 'bottom_event.dart';
 part 'bottom_state.dart';
 
-class BottomBloc extends Bloc<BottomEvent, BottomState> with WidgetsBindingObserver{
-  BottomBloc() : super(BottomInitial()) {
+class BottomBloc extends Bloc<BottomEvent, BottomState>
+    with WidgetsBindingObserver {
+  BottomBloc() : super(const BottomInitial(role: UserRole.user)) {
     WidgetsBinding.instance.addObserver(this);
     on<BottomData>((event, emit) async {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
-      emit(BottomInitial());
+      emit(const BottomInitial(role: UserRole.user));
       final Box<UserModelDomain> userBox =
           await Hive.openBox<UserModelDomain>("User");
       final UserModelDomain? user = userBox.get("user_data");
@@ -38,7 +39,6 @@ class BottomBloc extends Bloc<BottomEvent, BottomState> with WidgetsBindingObser
   Future<void> didChangeAppLifecycleState(
     AppLifecycleState appLifecycleState,
   ) async {
-    
     if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) {
       dev.log(name: "bloc buttom", "resume");
     }

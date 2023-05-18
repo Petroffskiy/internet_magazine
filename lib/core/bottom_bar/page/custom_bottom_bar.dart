@@ -13,14 +13,13 @@ import "dart:developer" as dev;
 @RoutePage()
 class CustomBottomBarPage extends StatelessWidget {
   CustomBottomBarPage({
-    super.key,
-    // required this.role,
-  });
-  UserRole role = UserRole.user;
-  // UserRole? role;
+    Key? key,
+  }) : super(key: key ?? UniqueKey());
 
+  bool isUpdate = false;
   @override
   Widget build(BuildContext context) {
+    UserRole role = checkHotReload(context: context);
     return AutoTabsScaffold(
       routes: const [
         MainCardRoute(),
@@ -58,24 +57,16 @@ class CustomBottomBarPage extends StatelessWidget {
             ),
           ),
         );
-        // return ClipRRect(
-        //   borderRadius: const BorderRadius.only(
-        //     topLeft: Radius.circular(30.0),
-        //     topRight: Radius.circular(30.0),
-        //   ),
-        //   child: BottomNavigationBar(
-        //     type: BottomNavigationBarType.fixed,
-        //     currentIndex: tabsRouter.activeIndex,
-        //     onTap: tabsRouter.setActiveIndex,
-        //     items: role == UserRole.admin
-        //         ? NavigationModel.bottomNavigationItemsListAdmin
-        //         : NavigationModel.bottomNavigationItemsListUser,
-        //     selectedFontSize: 8,
-        //     unselectedFontSize: 8,
-        //     iconSize: 18,
-        //   ),
-        // );
       }),
     );
+  }
+
+  UserRole checkHotReload({required BuildContext context}) {
+    if (isUpdate) {
+      context.read<BottomBloc>().add(BottomData());
+      return context.read<BottomBloc>().state.role;
+    } else {
+      return context.read<BottomBloc>().state.role;
+    }
   }
 }
