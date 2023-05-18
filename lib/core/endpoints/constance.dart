@@ -4,5 +4,5 @@ class Constance {
   static const USER = '/apis/users';
   static const GADGETS = '/apis/gadgets/';
   static const PRIMARY = '/apis/';
-  static const SAVEBUSKET = '/apis/busket/';
+  static const BUSKET = '/apis/busket/';
 }
