@@ -208,12 +208,18 @@ class _$_SaveProductBody implements _SaveProductBody {
   @pragma('vm:prefer-inline')
   _$$_SaveProductBodyCopyWith<_$_SaveProductBody> get copyWith =>
       __$$_SaveProductBodyCopyWithImpl<_$_SaveProductBody>(this, _$identity);
-      
-        @override
-        Map<String, dynamic> toJson() {
-          // TODO: implement toJson
-          throw UnimplementedError();
-        }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'image': image,
+      'name': name,
+      'count': count,
+      'price': price,
+      'selected': selected
+    };
+  }
 }
 
 abstract class _SaveProductBody implements SaveProductBody {

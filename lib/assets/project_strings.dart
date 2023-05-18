@@ -31,7 +31,7 @@ const String errorWrongPassword = "Неверный пароль";
 const String errorPasswordChangeHint = "Пароль должен быть больше 6 символов";
 const String errorPasswordChangeEmpty = "Пустое поле";
 const String error = "Какая-то ошибка, еще не придумал";
-const String errorServer = "Ошибка на вервере";
+const String errorServer = "Ошибка на сервере";
 
 const String errorAuthorizationUser =
     "По какой-то причине данных пользователя нет, попробуйте по позже";

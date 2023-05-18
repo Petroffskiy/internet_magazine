@@ -12,7 +12,7 @@ class SaveProductBody with _$SaveProductBody {
     required bool selected,
   }) = _SaveProductBody;
 
-  factory SaveProductBody.fromJson( map, String key) {
+  factory SaveProductBody.fromJson(map, String key) {
     return SaveProductBody(
         id: key,
         image: map['image'],
