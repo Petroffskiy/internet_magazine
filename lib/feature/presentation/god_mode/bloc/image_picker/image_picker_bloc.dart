@@ -14,7 +14,6 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
   }
 
   ImagePickerBloc() : super(ImagePickerInitial()) {
-    String? imagePath;
     final picker = ImagePicker();
     on<PickImageFromCamera>(
       (event, emit) async {

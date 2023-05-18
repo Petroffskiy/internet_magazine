@@ -1,6 +1,9 @@
+import 'package:internet_magazine/feature/data/api/model/god/primary_create_product_model.dart';
+import 'package:internet_magazine/feature/data/api/request/god/create_product_body.dart';
 import 'package:internet_magazine/feature/data/api/service/connection_service.dart';
 import 'package:internet_magazine/feature/data/mapper/busket/busket_data_mappert.dart';
 import 'package:internet_magazine/feature/data/mapper/busket/save_product.mapper.dart';
+import 'package:internet_magazine/feature/data/mapper/god/god_create_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/god/god_data_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/god/god_gadgets_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/main/list_gadgets_mapper.dart';
@@ -8,6 +11,7 @@ import 'package:internet_magazine/feature/data/mapper/main/list_personal_mapper.
 import 'package:internet_magazine/feature/data/mapper/personal/update_password_mapper.dart';
 import 'package:internet_magazine/feature/data/mapper/user/user_mapper.dart';
 import 'package:internet_magazine/feature/domain/model/busket/busket_data/primary_busket_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/god/create/primary_god_create_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/god/product/primary_god_gadgets_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/god/product/primary_god_products_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/main/list_gadgets/primary_gadgets_model_domain.dart';
@@ -90,5 +94,12 @@ class ApiUtil {
     final listGadgets = await _connectionService.getGodGadgets();
 
     return GodGagdetsMapper.fromJson(listGadgets);
+  }
+
+  Future<PrimaryGodCreateModelDomain> createProduct(
+      {required CreateProductBody productCreate}) async {
+    final create =
+        await _connectionService.createProdct(productCreate: productCreate);
+    return GodCreateMapper.fromJson(create);
   }
 }

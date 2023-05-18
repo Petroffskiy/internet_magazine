@@ -7,10 +7,9 @@ part 'select_category_event.dart';
 part 'select_category_state.dart';
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
-  CategoryBloc() : super(CategoryInitial()) {
+  CategoryBloc() : super(const CategoryInitial(selectedCategory: null)) {
     on<SelectCategory>(
       (event, emit) {
-        // emit(CategoryLoading());
         emit(CategoryLoaded(
             categoryList: event.listGadgets, selectedCategory: event.category));
       },

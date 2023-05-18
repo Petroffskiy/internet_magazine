@@ -10,7 +10,7 @@ class ParameterProductBloc
     extends Bloc<ParameterProductEvent, ParameterProductState> {
   List<DataModelDomain> dataList = [];
 
-  ParameterProductBloc() : super(ParameterProductInitial()) {
+  ParameterProductBloc() : super(ParameterProductInitial(null)) {
     on<AddParameterProduct>(
       (event, emit) {
         if (event is AddParameterProduct) {

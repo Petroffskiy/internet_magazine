@@ -3,9 +3,11 @@ import 'dart:convert';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
+import 'package:internet_magazine/assets/project_strings.dart';
 import 'package:internet_magazine/core/endpoints/constance.dart';
 import 'package:internet_magazine/feature/data/api/model/busket/primary_busket_model.dart';
 import 'package:internet_magazine/feature/data/api/model/error/error_model.dart';
+import 'package:internet_magazine/feature/data/api/model/god/primary_create_product_model.dart';
 import 'package:internet_magazine/feature/data/api/model/god/product/primary_god_gadgets_model.dart';
 import 'package:internet_magazine/feature/data/api/model/god/product/primary_god_products_model.dart';
 import 'package:internet_magazine/feature/data/api/model/main/gadgets/gadgets_model.dart';
@@ -19,6 +21,7 @@ import 'package:internet_magazine/feature/data/api/request/auth/authorization_bo
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:internet_magazine/feature/data/api/request/god/create_product_body.dart';
 
 import 'dart:developer' as dev;
 
@@ -445,6 +448,36 @@ class ConnectionService {
     } else {
       return const PrimaryGodGadgetsModel.error(ErrorModel(
           code: 418, message: "Каким-то образом пользователь не авторизован"));
+    }
+  }
+
+  Future<PrimaryCreateProductModel> createProdct(
+      {required CreateProductBody productCreate}) async {
+    const String endpoint = Constance.PRIMARY;
+    await Firebase.initializeApp();
+    final User? _user = FirebaseAuth.instance.currentUser;
+    try {
+      if (_user != null) {
+        // final DatabaseReference _productsRef =
+        FirebaseDatabase.instance
+            .ref()
+            .child(endpoint)
+            .child(productCreate.category)
+            .push()
+            .set(productCreate.toJson());
+        return const PrimaryCreateProductModel.success(true);
+        // _productsRef.key(productCreate.toJson());
+      } else {
+        const ErrorModel error = ErrorModel(
+            code: 418, message: "Каким-то образом пользователь не авторизован");
+        return const PrimaryCreateProductModel.error(error);
+      }
+    } catch (e) {
+      ErrorModel error = ErrorModel(
+        code: 418,
+        message: e.toString(),
+      );
+      return PrimaryCreateProductModel.error(error);
     }
   }
 }

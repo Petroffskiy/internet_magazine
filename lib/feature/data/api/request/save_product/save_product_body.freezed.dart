@@ -217,7 +217,7 @@ class _$_SaveProductBody implements _SaveProductBody {
       'name': name,
       'count': count,
       'price': price,
-      'selected': selected
+      'selected': selected,
     };
   }
 }

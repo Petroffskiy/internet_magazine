@@ -35,7 +35,7 @@ class GodPage extends StatelessWidget {
               padding: const EdgeInsets.only(top: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  // Действия при нажатии на вторую кнопку
+                  // Действия при нажатии 
                 },
                 child: Text(
                   'Категори',
@@ -46,7 +46,7 @@ class GodPage extends StatelessWidget {
             SizedBox(height: 20),
             GestureDetector(
               onTap: () {
-                // Действия при нажатии на третью кнопку
+                // Действия при нажатии
               },
               child: Text(
                 'Пользователи',
