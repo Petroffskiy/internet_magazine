@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+SaveProductBody _$SaveProductBodyFromJson(Map<String, dynamic> json) {
+  return _SaveProductBody.fromJson(json);
+}
+
 /// @nodoc
 mixin _$SaveProductBody {
   String? get id => throw _privateConstructorUsedError;
@@ -22,7 +26,11 @@ mixin _$SaveProductBody {
   int get count => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
   bool get selected => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  ParameterModel get parameters => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SaveProductBodyCopyWith<SaveProductBody> get copyWith =>
       throw _privateConstructorUsedError;
@@ -40,7 +48,12 @@ abstract class $SaveProductBodyCopyWith<$Res> {
       String name,
       int count,
       int price,
-      bool selected});
+      bool selected,
+      String category,
+      String description,
+      ParameterModel parameters});
+
+  $ParameterModelCopyWith<$Res> get parameters;
 }
 
 /// @nodoc
@@ -62,6 +75,9 @@ class _$SaveProductBodyCopyWithImpl<$Res, $Val extends SaveProductBody>
     Object? count = null,
     Object? price = null,
     Object? selected = null,
+    Object? category = null,
+    Object? description = null,
+    Object? parameters = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -88,7 +104,27 @@ class _$SaveProductBodyCopyWithImpl<$Res, $Val extends SaveProductBody>
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as bool,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      parameters: null == parameters
+          ? _value.parameters
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as ParameterModel,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ParameterModelCopyWith<$Res> get parameters {
+    return $ParameterModelCopyWith<$Res>(_value.parameters, (value) {
+      return _then(_value.copyWith(parameters: value) as $Val);
+    });
   }
 }
 
@@ -106,7 +142,13 @@ abstract class _$$_SaveProductBodyCopyWith<$Res>
       String name,
       int count,
       int price,
-      bool selected});
+      bool selected,
+      String category,
+      String description,
+      ParameterModel parameters});
+
+  @override
+  $ParameterModelCopyWith<$Res> get parameters;
 }
 
 /// @nodoc
@@ -126,6 +168,9 @@ class __$$_SaveProductBodyCopyWithImpl<$Res>
     Object? count = null,
     Object? price = null,
     Object? selected = null,
+    Object? category = null,
+    Object? description = null,
+    Object? parameters = null,
   }) {
     return _then(_$_SaveProductBody(
       id: freezed == id
@@ -152,12 +197,24 @@ class __$$_SaveProductBodyCopyWithImpl<$Res>
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as bool,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      parameters: null == parameters
+          ? _value.parameters
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as ParameterModel,
     ));
   }
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_SaveProductBody implements _SaveProductBody {
   const _$_SaveProductBody(
       {required this.id,
@@ -165,7 +222,13 @@ class _$_SaveProductBody implements _SaveProductBody {
       required this.name,
       required this.count,
       required this.price,
-      required this.selected});
+      required this.selected,
+      required this.category,
+      required this.description,
+      required this.parameters});
+
+  factory _$_SaveProductBody.fromJson(Map<String, dynamic> json) =>
+      _$$_SaveProductBodyFromJson(json);
 
   @override
   final String? id;
@@ -179,10 +242,16 @@ class _$_SaveProductBody implements _SaveProductBody {
   final int price;
   @override
   final bool selected;
+  @override
+  final String category;
+  @override
+  final String description;
+  @override
+  final ParameterModel parameters;
 
   @override
   String toString() {
-    return 'SaveProductBody(id: $id, image: $image, name: $name, count: $count, price: $price, selected: $selected)';
+    return 'SaveProductBody(id: $id, image: $image, name: $name, count: $count, price: $price, selected: $selected, category: $category, description: $description, parameters: $parameters)';
   }
 
   @override
@@ -196,24 +265,32 @@ class _$_SaveProductBody implements _SaveProductBody {
             (identical(other.count, count) || other.count == count) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.selected, selected) ||
-                other.selected == selected));
+                other.selected == selected) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.parameters, parameters) ||
+                other.parameters == parameters));
   }
 
+  @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, image, name, count, price, selected);
+  int get hashCode => Object.hash(runtimeType, id, image, name, count, price,
+      selected, category, description, parameters);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_SaveProductBodyCopyWith<_$_SaveProductBody> get copyWith =>
       __$$_SaveProductBodyCopyWithImpl<_$_SaveProductBody>(this, _$identity);
-      
-        @override
-        Map<String, dynamic> toJson() {
-          // TODO: implement toJson
-          throw UnimplementedError();
-        }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_SaveProductBodyToJson(
+      this,
+    );
+  }
 }
 
 abstract class _SaveProductBody implements SaveProductBody {
@@ -223,7 +300,13 @@ abstract class _SaveProductBody implements SaveProductBody {
       required final String name,
       required final int count,
       required final int price,
-      required final bool selected}) = _$_SaveProductBody;
+      required final bool selected,
+      required final String category,
+      required final String description,
+      required final ParameterModel parameters}) = _$_SaveProductBody;
+
+  factory _SaveProductBody.fromJson(Map<String, dynamic> json) =
+      _$_SaveProductBody.fromJson;
 
   @override
   String? get id;
@@ -237,6 +320,12 @@ abstract class _SaveProductBody implements SaveProductBody {
   int get price;
   @override
   bool get selected;
+  @override
+  String get category;
+  @override
+  String get description;
+  @override
+  ParameterModel get parameters;
   @override
   @JsonKey(ignore: true)
   _$$_SaveProductBodyCopyWith<_$_SaveProductBody> get copyWith =>

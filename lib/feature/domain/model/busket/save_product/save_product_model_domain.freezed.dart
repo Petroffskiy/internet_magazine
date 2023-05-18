@@ -28,6 +28,12 @@ mixin _$SaveProductModelDomain {
   bool get isSelected => throw _privateConstructorUsedError;
   @HiveField(5)
   String get id => throw _privateConstructorUsedError;
+  @HiveField(6)
+  DataModelDomain get parameters => throw _privateConstructorUsedError;
+  @HiveField(7)
+  String get description => throw _privateConstructorUsedError;
+  @HiveField(8)
+  String get category => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SaveProductModelDomainCopyWith<SaveProductModelDomain> get copyWith =>
@@ -46,7 +52,12 @@ abstract class $SaveProductModelDomainCopyWith<$Res> {
       @HiveField(2) int count,
       @HiveField(3) int price,
       @HiveField(4) bool isSelected,
-      @HiveField(5) String id});
+      @HiveField(5) String id,
+      @HiveField(6) DataModelDomain parameters,
+      @HiveField(7) String description,
+      @HiveField(8) String category});
+
+  $DataModelDomainCopyWith<$Res> get parameters;
 }
 
 /// @nodoc
@@ -69,6 +80,9 @@ class _$SaveProductModelDomainCopyWithImpl<$Res,
     Object? price = null,
     Object? isSelected = null,
     Object? id = null,
+    Object? parameters = null,
+    Object? description = null,
+    Object? category = null,
   }) {
     return _then(_value.copyWith(
       image: null == image
@@ -95,7 +109,27 @@ class _$SaveProductModelDomainCopyWithImpl<$Res,
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      parameters: null == parameters
+          ? _value.parameters
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as DataModelDomain,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DataModelDomainCopyWith<$Res> get parameters {
+    return $DataModelDomainCopyWith<$Res>(_value.parameters, (value) {
+      return _then(_value.copyWith(parameters: value) as $Val);
+    });
   }
 }
 
@@ -113,7 +147,13 @@ abstract class _$$_SaveProductModelDomainCopyWith<$Res>
       @HiveField(2) int count,
       @HiveField(3) int price,
       @HiveField(4) bool isSelected,
-      @HiveField(5) String id});
+      @HiveField(5) String id,
+      @HiveField(6) DataModelDomain parameters,
+      @HiveField(7) String description,
+      @HiveField(8) String category});
+
+  @override
+  $DataModelDomainCopyWith<$Res> get parameters;
 }
 
 /// @nodoc
@@ -134,6 +174,9 @@ class __$$_SaveProductModelDomainCopyWithImpl<$Res>
     Object? price = null,
     Object? isSelected = null,
     Object? id = null,
+    Object? parameters = null,
+    Object? description = null,
+    Object? category = null,
   }) {
     return _then(_$_SaveProductModelDomain(
       image: null == image
@@ -160,6 +203,18 @@ class __$$_SaveProductModelDomainCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      parameters: null == parameters
+          ? _value.parameters
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as DataModelDomain,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -173,7 +228,10 @@ class _$_SaveProductModelDomain implements _SaveProductModelDomain {
       @HiveField(2) required this.count,
       @HiveField(3) required this.price,
       @HiveField(4) required this.isSelected,
-      @HiveField(5) required this.id});
+      @HiveField(5) required this.id,
+      @HiveField(6) required this.parameters,
+      @HiveField(7) required this.description,
+      @HiveField(8) required this.category});
 
   @override
   @HiveField(0)
@@ -193,10 +251,19 @@ class _$_SaveProductModelDomain implements _SaveProductModelDomain {
   @override
   @HiveField(5)
   final String id;
+  @override
+  @HiveField(6)
+  final DataModelDomain parameters;
+  @override
+  @HiveField(7)
+  final String description;
+  @override
+  @HiveField(8)
+  final String category;
 
   @override
   String toString() {
-    return 'SaveProductModelDomain(image: $image, name: $name, count: $count, price: $price, isSelected: $isSelected, id: $id)';
+    return 'SaveProductModelDomain(image: $image, name: $name, count: $count, price: $price, isSelected: $isSelected, id: $id, parameters: $parameters, description: $description, category: $category)';
   }
 
   @override
@@ -210,12 +277,18 @@ class _$_SaveProductModelDomain implements _SaveProductModelDomain {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.isSelected, isSelected) ||
                 other.isSelected == isSelected) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.parameters, parameters) ||
+                other.parameters == parameters) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.category, category) ||
+                other.category == category));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, image, name, count, price, isSelected, id);
+  int get hashCode => Object.hash(runtimeType, image, name, count, price,
+      isSelected, id, parameters, description, category);
 
   @JsonKey(ignore: true)
   @override
@@ -227,12 +300,16 @@ class _$_SaveProductModelDomain implements _SaveProductModelDomain {
 
 abstract class _SaveProductModelDomain implements SaveProductModelDomain {
   const factory _SaveProductModelDomain(
-      {@HiveField(0) required final String image,
-      @HiveField(1) required final String name,
-      @HiveField(2) required final int count,
-      @HiveField(3) required final int price,
-      @HiveField(4) required final bool isSelected,
-      @HiveField(5) required final String id}) = _$_SaveProductModelDomain;
+          {@HiveField(0) required final String image,
+          @HiveField(1) required final String name,
+          @HiveField(2) required final int count,
+          @HiveField(3) required final int price,
+          @HiveField(4) required final bool isSelected,
+          @HiveField(5) required final String id,
+          @HiveField(6) required final DataModelDomain parameters,
+          @HiveField(7) required final String description,
+          @HiveField(8) required final String category}) =
+      _$_SaveProductModelDomain;
 
   @override
   @HiveField(0)
@@ -252,6 +329,15 @@ abstract class _SaveProductModelDomain implements SaveProductModelDomain {
   @override
   @HiveField(5)
   String get id;
+  @override
+  @HiveField(6)
+  DataModelDomain get parameters;
+  @override
+  @HiveField(7)
+  String get description;
+  @override
+  @HiveField(8)
+  String get category;
   @override
   @JsonKey(ignore: true)
   _$$_SaveProductModelDomainCopyWith<_$_SaveProductModelDomain> get copyWith =>

@@ -5,6 +5,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:internet_magazine/assets/colors/colors.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
 import 'package:internet_magazine/core/routers/app_router.gr.dart';
+import 'package:internet_magazine/feature/presentation/basket/bloc/busket/busket_bloc.dart';
 import 'package:internet_magazine/feature/presentation/main_cards/bloc/main_card/main_card_bloc.dart';
 import 'package:internet_magazine/feature/presentation/main_cards/bloc/save_busket/save_busket_bloc.dart';
 import 'package:internet_magazine/feature/presentation/widgets/image_network.dart';
@@ -209,6 +210,8 @@ class MainCardPage extends StatelessWidget {
                                                                           index,
                                                                     ),
                                                                   );
+                                                              context.read<
+                                                                  BusketBloc>();
                                                             },
                                                             child: Container(
                                                               decoration:

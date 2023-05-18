@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:internet_magazine/feature/domain/model/god/create/data_model_domain.dart';
 
 part 'product_model_domain.freezed.dart';
 
@@ -11,5 +12,6 @@ class ProductModelDomain with _$ProductModelDomain {
     required String image,
     required String description,
     required int count,
+    required DataModelDomain parameter,
   }) = _ProductModelDomain;
 }

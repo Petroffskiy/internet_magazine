@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:internet_magazine/assets/project_strings.dart';
 import 'package:internet_magazine/core/endpoints/constance.dart';
 import 'package:internet_magazine/feature/data/api/model/busket/primary_busket_model.dart';
+import 'package:internet_magazine/feature/data/api/model/busket/primary_busket_save_model.dart';
 import 'package:internet_magazine/feature/data/api/model/error/error_model.dart';
 import 'package:internet_magazine/feature/data/api/model/god/product/primary_god_gadgets_model.dart';
 import 'package:internet_magazine/feature/data/api/model/god/product/primary_god_products_model.dart';
@@ -237,6 +238,49 @@ class ConnectionService {
     }
   }
 
+  // Future<PrimaryProductModel> getProducts(
+  //     {required List<String> finder}) async {
+  //   const String endpoint = Constance.PRIMARY;
+  //   await Firebase.initializeApp();
+  //   final _database = FirebaseDatabase.instance.ref().child(endpoint);
+  //   final List<DatabaseReference> endpoints = List.generate(
+  //     finder.length,
+  //     (index) => _database.child(
+  //       finder[index],
+  //     ),
+  //   );
+  //   List<ProductModel> result = [];
+  //   for (int i = 0; i < endpoints.length; i++) {
+  //     try {
+  //       final values = await endpoints[i].once();
+  //       dev.log(
+  //           name: "service getProduct",
+  //           "endpoint: ${endpoints[i].key.toString()} && ${_database.path}");
+
+  //       if (values.snapshot.value != null) {
+  //         final List<dynamic> valueList =
+  //             values.snapshot.value as List<dynamic>;
+  //         final List<Map<String, dynamic>> valueMapList = valueList
+  //             .map((value) => Map<String, dynamic>.from(value))
+  //             .toList();
+  //         dev.log(
+  //             name: "service getProduct", "in lsts index $i, $valueMapList");
+  //         result.addAll(List.generate(valueMapList.length,
+  //             (index) => ProductModel.fromJson(valueMapList[index])));
+  //       } else {
+  //         ErrorModel error = ErrorModel(
+  //           code: 418,
+  //           message: "Шеф, всё пропало ${values.snapshot.value.toString()}",
+  //         );
+  //         return PrimaryProductModel.error(error);
+  //       }
+  //     } catch (e) {
+  //       ErrorModel error = ErrorModel(message: e.toString(), code: 418);
+  //       return PrimaryProductModel.error(error);
+  //     }
+  //   }
+  //   return PrimaryProductModel.success(result);
+  // }
   Future<PrimaryProductModel> getProducts(
       {required List<String> finder}) async {
     const String endpoint = Constance.PRIMARY;
@@ -244,9 +288,7 @@ class ConnectionService {
     final _database = FirebaseDatabase.instance.ref().child(endpoint);
     final List<DatabaseReference> endpoints = List.generate(
       finder.length,
-      (index) => _database.child(
-        finder[index],
-      ),
+      (index) => _database.child(finder[index]),
     );
     List<ProductModel> result = [];
     for (int i = 0; i < endpoints.length; i++) {
@@ -255,16 +297,17 @@ class ConnectionService {
         dev.log(
             name: "service getProduct",
             "endpoint: ${endpoints[i].key.toString()} && ${_database.path}");
+
         if (values.snapshot.value != null) {
           final List<dynamic> valueList =
               values.snapshot.value as List<dynamic>;
-          final List<Map<String, dynamic>> valueMapList = valueList
-              .map((value) => Map<String, dynamic>.from(value))
-              .toList();
-          dev.log(
-              name: "service getProduct", "in lsts index $i, $valueMapList");
-          result.addAll(List.generate(valueMapList.length,
-              (index) => ProductModel.fromJson(valueMapList[index])));
+
+          for (var value in valueList) {
+            final Map<String, dynamic> valueMap =
+                Map<String, dynamic>.from(value);
+            dev.log(name: "service getProduct", "in lsts index $i, $valueMap");
+            result.add(ProductModel.fromJson(valueMap));
+          }
         } else {
           ErrorModel error = ErrorModel(
             code: 418,
@@ -277,10 +320,12 @@ class ConnectionService {
         return PrimaryProductModel.error(error);
       }
     }
+
     return PrimaryProductModel.success(result);
   }
 
-  Future<bool> saveProduct({required SaveProductBody product}) async {
+  Future<PrimaryBusketSaveModel> saveProduct(
+      {required SaveProductBody product}) async {
     const String endpoint = Constance.SAVEBUSKET;
     await Firebase.initializeApp();
     try {
@@ -292,13 +337,27 @@ class ConnectionService {
         key.set(product.toJson());
         dev.log(
             name: "service save product", "save complete: ${_database.key}");
-        return true;
+        final ProductModel model = ProductModel(
+          name: product.name,
+          category: product.category,
+          price: product.price,
+          image: product.image,
+          description: product.description,
+          count: product.count,
+          id: _database.key!,
+          selected: product.selected,
+          parameters: product.parameters,
+        );
+        return PrimaryBusketSaveModel.success(model);
       } else {
         dev.log(name: "service save product", "save error");
-        return false;
+        const ErrorModel error =
+            ErrorModel(message: "Ошибка сохранения", code: 404);
+        return const PrimaryBusketSaveModel.error(error);
       }
     } catch (e) {
-      return false;
+      final ErrorModel error = ErrorModel(message: e.toString(), code: 404);
+      return PrimaryBusketSaveModel.error(error);
     }
   }
 
@@ -310,25 +369,28 @@ class ConnectionService {
       final _database = FirebaseDatabase.instance.ref().child(endpoint);
       final User? _user = FirebaseAuth.instance.currentUser;
       if (_user != null) {
-        final dynamic data = await _database.child(_user.uid).once();
-
+        final data = await _database.child(_user.uid).once();
+        dev.log(name: "service busket data", "busket data have user");
+        final snapshop = data.snapshot.value;
         if (data.snapshot.value != null) {
           final List<SaveProductBody> result = [];
           dev.log(name: "service busket", "befor forEach");
+          final SaveProductBody product =
+              SaveProductBody.fromJson(snapshop as Map<String, dynamic>);
+          result.add(product);
+          // data.snapshot.value.forEach((key, value) {
+          //   dev.log(name: "service busket", "befor if in forEach");
+          //   dev.log(name: "service busket", "value: ${value['name']}");
 
-          data.snapshot.value.forEach((key, value) {
-            dev.log(name: "service busket", "befor if in forEach");
-            dev.log(name: "service busket", "value: ${value['name']}");
+          //   // if (value is Map<String, dynamic>) {
+          //   dev.log(name: "service busket", "key: $key, value: $value");
 
-            // if (value is Map<String, dynamic>) {
-            dev.log(name: "service busket", "key: $key, value: $value");
-            final SaveProductBody product =
-                SaveProductBody.fromJson(value, key);
-            result.add(product);
-            // }
-          });
+          //   // }
+          // }
+          // );
           return PrimaryBusketModel.success(result);
         } else {
+          dev.log(name: "service busket data", "busket empty");
           const ErrorModel error = ErrorModel(
             message: "snapshot null",
             code: 418,

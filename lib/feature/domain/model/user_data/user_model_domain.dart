@@ -14,5 +14,6 @@ class UserModelDomain with _$UserModelDomain {
     @HiveField(2) required String password,
     @HiveField(3) required String role,
     @HiveField(4) required String login,
+    
   }) = _UserModelDomain;
 }

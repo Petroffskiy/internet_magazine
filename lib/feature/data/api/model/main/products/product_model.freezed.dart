@@ -26,6 +26,9 @@ mixin _$ProductModel {
   String get image => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  bool get selected => throw _privateConstructorUsedError;
+  ParameterModel get parameters => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +48,12 @@ abstract class $ProductModelCopyWith<$Res> {
       int price,
       String image,
       String description,
-      int count});
+      int count,
+      String id,
+      bool selected,
+      ParameterModel parameters});
+
+  $ParameterModelCopyWith<$Res> get parameters;
 }
 
 /// @nodoc
@@ -67,6 +75,9 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? image = null,
     Object? description = null,
     Object? count = null,
+    Object? id = null,
+    Object? selected = null,
+    Object? parameters = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -93,7 +104,27 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      selected: null == selected
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as bool,
+      parameters: null == parameters
+          ? _value.parameters
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as ParameterModel,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ParameterModelCopyWith<$Res> get parameters {
+    return $ParameterModelCopyWith<$Res>(_value.parameters, (value) {
+      return _then(_value.copyWith(parameters: value) as $Val);
+    });
   }
 }
 
@@ -111,7 +142,13 @@ abstract class _$$_ProductModelCopyWith<$Res>
       int price,
       String image,
       String description,
-      int count});
+      int count,
+      String id,
+      bool selected,
+      ParameterModel parameters});
+
+  @override
+  $ParameterModelCopyWith<$Res> get parameters;
 }
 
 /// @nodoc
@@ -131,6 +168,9 @@ class __$$_ProductModelCopyWithImpl<$Res>
     Object? image = null,
     Object? description = null,
     Object? count = null,
+    Object? id = null,
+    Object? selected = null,
+    Object? parameters = null,
   }) {
     return _then(_$_ProductModel(
       name: null == name
@@ -157,6 +197,18 @@ class __$$_ProductModelCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      selected: null == selected
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as bool,
+      parameters: null == parameters
+          ? _value.parameters
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as ParameterModel,
     ));
   }
 }
@@ -170,7 +222,10 @@ class _$_ProductModel implements _ProductModel {
       required this.price,
       required this.image,
       required this.description,
-      required this.count});
+      required this.count,
+      required this.id,
+      required this.selected,
+      required this.parameters});
 
   factory _$_ProductModel.fromJson(Map<String, dynamic> json) =>
       _$$_ProductModelFromJson(json);
@@ -187,10 +242,16 @@ class _$_ProductModel implements _ProductModel {
   final String description;
   @override
   final int count;
+  @override
+  final String id;
+  @override
+  final bool selected;
+  @override
+  final ParameterModel parameters;
 
   @override
   String toString() {
-    return 'ProductModel(name: $name, category: $category, price: $price, image: $image, description: $description, count: $count)';
+    return 'ProductModel(name: $name, category: $category, price: $price, image: $image, description: $description, count: $count, id: $id, selected: $selected, parameters: $parameters)';
   }
 
   @override
@@ -205,13 +266,18 @@ class _$_ProductModel implements _ProductModel {
             (identical(other.image, image) || other.image == image) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.count, count) || other.count == count));
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.selected, selected) ||
+                other.selected == selected) &&
+            (identical(other.parameters, parameters) ||
+                other.parameters == parameters));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, name, category, price, image, description, count);
+  int get hashCode => Object.hash(runtimeType, name, category, price, image,
+      description, count, id, selected, parameters);
 
   @JsonKey(ignore: true)
   @override
@@ -234,7 +300,10 @@ abstract class _ProductModel implements ProductModel {
       required final int price,
       required final String image,
       required final String description,
-      required final int count}) = _$_ProductModel;
+      required final int count,
+      required final String id,
+      required final bool selected,
+      required final ParameterModel parameters}) = _$_ProductModel;
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
       _$_ProductModel.fromJson;
@@ -251,6 +320,12 @@ abstract class _ProductModel implements ProductModel {
   String get description;
   @override
   int get count;
+  @override
+  String get id;
+  @override
+  bool get selected;
+  @override
+  ParameterModel get parameters;
   @override
   @JsonKey(ignore: true)
   _$$_ProductModelCopyWith<_$_ProductModel> get copyWith =>

@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_magazine/feature/domain/model/god/create/data_model_domain.dart';
 
-
 part 'parameter_product_event.dart';
 part 'parameter_product_state.dart';
 
@@ -14,7 +13,7 @@ class ParameterProductBloc
     on<AddParameterProduct>(
       (event, emit) {
         if (event is AddParameterProduct) {
-          dataList.add(const DataModelDomain(key: '', value: ''));
+          dataList.add(const DataModelDomain(key: '', value: '', id: ''));
           emit(ParameterProductDownload(List.from(dataList)));
         }
       },
@@ -23,7 +22,7 @@ class ParameterProductBloc
       (event, emit) {
         if (state is ParameterProductDownload) {
           if (event is AddParameterProduct) {
-            dataList.add(const DataModelDomain(key: '', value: ''));
+            dataList.add(const DataModelDomain(key: '', value: '', id: ''));
             emit(ParameterProductDownload(List.from(dataList)));
           } else if (event is UpdateParameterProduct) {
             final updatedList = List<DataModelDomain>.from(dataList);
@@ -31,6 +30,7 @@ class ParameterProductBloc
               final updatedItem = DataModelDomain(
                 key: event.key ?? updatedList[event.index].key,
                 value: event.value ?? updatedList[event.index].value,
+                id: '',
               );
               updatedList[event.index] = updatedItem;
             }

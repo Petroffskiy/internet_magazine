@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_magazine/core/application.dart';
 import 'package:internet_magazine/feature/domain/model/busket/save_product/save_product_model_domain.dart';
+import 'package:internet_magazine/feature/domain/model/god/create/data_model_domain.dart';
 import 'package:internet_magazine/feature/domain/model/user_data/user_model_domain.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -15,9 +16,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Hive.initFlutter();
   inj.init();
-  runApp(const Application());
+  await Hive.initFlutter();
   Hive.registerAdapter(User());
   Hive.registerAdapter(Busket());
+  Hive.registerAdapter(Parameter());
+  runApp(const Application());
 }

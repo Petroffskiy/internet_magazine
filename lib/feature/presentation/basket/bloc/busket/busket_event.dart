@@ -12,3 +12,4 @@ class GetBusketData extends BusketEvent {
   @override
   List<Object> get props => [];
 }
+

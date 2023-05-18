@@ -19,24 +19,14 @@ class BusketBloc extends Bloc<BusketEvent, BusketState> {
 
         final PrimaryBusketModelDomain response =
             await _busketRepositoryDomain.busketModel();
-        dev.log(name: "bloc busket", "start");
         await response.maybeWhen(
           success: (success) {
-            for (var element in success) {
-                dev.log(name: "bloc busket", "success: ${success.first}");
-                dev.log(name: "bloc busket", "value: $element");
-              }
-
             emit(BusketDownload(products: success));
           },
           error: (error) {
-            dev.log(name: "bloc busket", "error");
-
             emit(BusketError(message: "${error.message}, ${error.code}"));
           },
           orElse: () async {
-            dev.log(name: "bloc busket", "start Hive");
-
             final busketBox =
                 await Hive.openBox<SaveProductModelDomain>("Busket");
             final List<SaveProductModelDomain> listProducts =

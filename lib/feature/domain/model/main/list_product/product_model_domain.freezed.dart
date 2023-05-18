@@ -22,6 +22,7 @@ mixin _$ProductModelDomain {
   String get image => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
+  DataModelDomain get parameter => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductModelDomainCopyWith<ProductModelDomain> get copyWith =>
@@ -40,7 +41,10 @@ abstract class $ProductModelDomainCopyWith<$Res> {
       int price,
       String image,
       String description,
-      int count});
+      int count,
+      DataModelDomain parameter});
+
+  $DataModelDomainCopyWith<$Res> get parameter;
 }
 
 /// @nodoc
@@ -62,6 +66,7 @@ class _$ProductModelDomainCopyWithImpl<$Res, $Val extends ProductModelDomain>
     Object? image = null,
     Object? description = null,
     Object? count = null,
+    Object? parameter = null,
   }) {
     return _then(_value.copyWith(
       category: null == category
@@ -88,7 +93,19 @@ class _$ProductModelDomainCopyWithImpl<$Res, $Val extends ProductModelDomain>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      parameter: null == parameter
+          ? _value.parameter
+          : parameter // ignore: cast_nullable_to_non_nullable
+              as DataModelDomain,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DataModelDomainCopyWith<$Res> get parameter {
+    return $DataModelDomainCopyWith<$Res>(_value.parameter, (value) {
+      return _then(_value.copyWith(parameter: value) as $Val);
+    });
   }
 }
 
@@ -106,7 +123,11 @@ abstract class _$$_ProductModelDomainCopyWith<$Res>
       int price,
       String image,
       String description,
-      int count});
+      int count,
+      DataModelDomain parameter});
+
+  @override
+  $DataModelDomainCopyWith<$Res> get parameter;
 }
 
 /// @nodoc
@@ -126,6 +147,7 @@ class __$$_ProductModelDomainCopyWithImpl<$Res>
     Object? image = null,
     Object? description = null,
     Object? count = null,
+    Object? parameter = null,
   }) {
     return _then(_$_ProductModelDomain(
       category: null == category
@@ -152,6 +174,10 @@ class __$$_ProductModelDomainCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      parameter: null == parameter
+          ? _value.parameter
+          : parameter // ignore: cast_nullable_to_non_nullable
+              as DataModelDomain,
     ));
   }
 }
@@ -165,7 +191,8 @@ class _$_ProductModelDomain implements _ProductModelDomain {
       required this.price,
       required this.image,
       required this.description,
-      required this.count});
+      required this.count,
+      required this.parameter});
 
   @override
   final String category;
@@ -179,10 +206,12 @@ class _$_ProductModelDomain implements _ProductModelDomain {
   final String description;
   @override
   final int count;
+  @override
+  final DataModelDomain parameter;
 
   @override
   String toString() {
-    return 'ProductModelDomain(category: $category, name: $name, price: $price, image: $image, description: $description, count: $count)';
+    return 'ProductModelDomain(category: $category, name: $name, price: $price, image: $image, description: $description, count: $count, parameter: $parameter)';
   }
 
   @override
@@ -197,12 +226,14 @@ class _$_ProductModelDomain implements _ProductModelDomain {
             (identical(other.image, image) || other.image == image) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.count, count) || other.count == count));
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.parameter, parameter) ||
+                other.parameter == parameter));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, category, name, price, image, description, count);
+      runtimeType, category, name, price, image, description, count, parameter);
 
   @JsonKey(ignore: true)
   @override
@@ -219,7 +250,8 @@ abstract class _ProductModelDomain implements ProductModelDomain {
       required final int price,
       required final String image,
       required final String description,
-      required final int count}) = _$_ProductModelDomain;
+      required final int count,
+      required final DataModelDomain parameter}) = _$_ProductModelDomain;
 
   @override
   String get category;
@@ -233,6 +265,8 @@ abstract class _ProductModelDomain implements ProductModelDomain {
   String get description;
   @override
   int get count;
+  @override
+  DataModelDomain get parameter;
   @override
   @JsonKey(ignore: true)
   _$$_ProductModelDomainCopyWith<_$_ProductModelDomain> get copyWith =>

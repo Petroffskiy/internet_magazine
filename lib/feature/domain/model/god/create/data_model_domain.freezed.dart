@@ -16,8 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DataModelDomain {
+  @HiveField(0)
   String get key => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get value => throw _privateConstructorUsedError;
+  @HiveField(2)
+  String? get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DataModelDomainCopyWith<DataModelDomain> get copyWith =>
@@ -30,7 +34,10 @@ abstract class $DataModelDomainCopyWith<$Res> {
           DataModelDomain value, $Res Function(DataModelDomain) then) =
       _$DataModelDomainCopyWithImpl<$Res, DataModelDomain>;
   @useResult
-  $Res call({String key, String value});
+  $Res call(
+      {@HiveField(0) String key,
+      @HiveField(1) String value,
+      @HiveField(2) String? id});
 }
 
 /// @nodoc
@@ -48,6 +55,7 @@ class _$DataModelDomainCopyWithImpl<$Res, $Val extends DataModelDomain>
   $Res call({
     Object? key = null,
     Object? value = null,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       key: null == key
@@ -58,6 +66,10 @@ class _$DataModelDomainCopyWithImpl<$Res, $Val extends DataModelDomain>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -70,7 +82,10 @@ abstract class _$$_DataModelDomainCopyWith<$Res>
       __$$_DataModelDomainCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String key, String value});
+  $Res call(
+      {@HiveField(0) String key,
+      @HiveField(1) String value,
+      @HiveField(2) String? id});
 }
 
 /// @nodoc
@@ -86,6 +101,7 @@ class __$$_DataModelDomainCopyWithImpl<$Res>
   $Res call({
     Object? key = null,
     Object? value = null,
+    Object? id = freezed,
   }) {
     return _then(_$_DataModelDomain(
       key: null == key
@@ -96,6 +112,10 @@ class __$$_DataModelDomainCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -103,16 +123,24 @@ class __$$_DataModelDomainCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DataModelDomain implements _DataModelDomain {
-  const _$_DataModelDomain({required this.key, required this.value});
+  const _$_DataModelDomain(
+      {@HiveField(0) required this.key,
+      @HiveField(1) required this.value,
+      @HiveField(2) required this.id});
 
   @override
+  @HiveField(0)
   final String key;
   @override
+  @HiveField(1)
   final String value;
+  @override
+  @HiveField(2)
+  final String? id;
 
   @override
   String toString() {
-    return 'DataModelDomain(key: $key, value: $value)';
+    return 'DataModelDomain(key: $key, value: $value, id: $id)';
   }
 
   @override
@@ -121,11 +149,12 @@ class _$_DataModelDomain implements _DataModelDomain {
         (other.runtimeType == runtimeType &&
             other is _$_DataModelDomain &&
             (identical(other.key, key) || other.key == key) &&
-            (identical(other.value, value) || other.value == value));
+            (identical(other.value, value) || other.value == value) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, key, value);
+  int get hashCode => Object.hash(runtimeType, key, value, id);
 
   @JsonKey(ignore: true)
   @override
@@ -136,13 +165,19 @@ class _$_DataModelDomain implements _DataModelDomain {
 
 abstract class _DataModelDomain implements DataModelDomain {
   const factory _DataModelDomain(
-      {required final String key,
-      required final String value}) = _$_DataModelDomain;
+      {@HiveField(0) required final String key,
+      @HiveField(1) required final String value,
+      @HiveField(2) required final String? id}) = _$_DataModelDomain;
 
   @override
+  @HiveField(0)
   String get key;
   @override
+  @HiveField(1)
   String get value;
+  @override
+  @HiveField(2)
+  String? get id;
   @override
   @JsonKey(ignore: true)
   _$$_DataModelDomainCopyWith<_$_DataModelDomain> get copyWith =>
