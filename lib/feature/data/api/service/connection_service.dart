@@ -51,13 +51,18 @@ class ConnectionService {
 
         final DatabaseEvent dataResponse =
             await _database.ref().child(endpointUser).once();
+        dev.log(
+            name: "connection service",
+            "${dataResponse.snapshot.value.toString()}");
 
         if (dataResponse.snapshot != null) {
           final test = jsonDecode(jsonEncode(dataResponse.snapshot.value));
-
+          dev.log(name: "connection service", "snapsot ${test.toString()}");
           UserModel userResponse = UserModel.fromJson(test[user.uid]);
           return PrimaryUserModel.success(userResponse);
         } else {
+          dev.log(name: "connection service", "null snapshot");
+
           ErrorModel error = const ErrorModel(
             code: errorCodeMapper,
             message: errorMessage404,
@@ -65,6 +70,7 @@ class ConnectionService {
           return PrimaryUserModel.error(error);
         }
       } else {
+        dev.log(name: "connection service", "empty else ");
         ErrorModel error =
             const ErrorModel(code: errorCodeMapper, message: errorMessage404);
         return PrimaryUserModel.error(error);
@@ -89,6 +95,8 @@ class ConnectionService {
         );
         return PrimaryUserModel.error(error);
       } else {
+        dev.log(name: "connection service", "catch error");
+
         ErrorModel error = ErrorModel(message: e.code, code: errorCodeMapper);
         return PrimaryUserModel.error(error);
       }
@@ -314,7 +322,7 @@ class ConnectionService {
       final User? _user = FirebaseAuth.instance.currentUser;
       if (_user != null) {
         final dynamic data = await _database.child(_user.uid).once();
-
+        dev.log(name: "get data busket uid", _user.uid);
         if (data.snapshot.value != null) {
           final List<SaveProductBody> result = [];
           dev.log(name: "service busket", "befor forEach");

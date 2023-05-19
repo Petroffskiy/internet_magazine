@@ -23,3 +23,7 @@ class BottomDownload extends BottomState {
     return BottomDownload(role: role ?? this.role);
   }
 }
+
+class BottomError extends BottomState {
+  const BottomError({required super.role});
+}

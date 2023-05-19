@@ -36,6 +36,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         BlocListener<AppBarBloc, AppBarState>(
           listener: (context, state) {
             if (state is AppBarDownloaded) {
+              // context.read<AppBarBloc>().add(ExitAccount());
               context.router.replace(const AuthEmptyRoute());
             }
           },

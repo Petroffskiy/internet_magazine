@@ -16,8 +16,8 @@ void main() async {
   );
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Hive.initFlutter();
-  inj.init();
-  runApp(const Application());
   Hive.registerAdapter(User());
   Hive.registerAdapter(Busket());
+  inj.init();
+  runApp(const Application());
 }

@@ -1,3 +1,4 @@
+
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +26,15 @@ class BottomBloc extends Bloc<BottomEvent, BottomState>
       final Box<UserModelDomain> userBox =
           await Hive.openBox<UserModelDomain>("User");
       final UserModelDomain? user = userBox.get("user_data");
-      print(user?.role);
+      dev.log(name: "bottom bloc", "${user?.role}");
       if (user != null) {
         final UserRole role = UserRole.setRole(user.role);
         emit(BottomDownload(role: role));
       } else {
+      
         final UserRole role = UserRole.setRole("user");
-        emit(BottomDownload(role: role));
+        // emit(BottomErrkr(role: role));
+        emit(BottomError(role: role));
       }
     });
   }

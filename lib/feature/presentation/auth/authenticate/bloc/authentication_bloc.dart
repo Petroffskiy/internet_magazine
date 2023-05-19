@@ -29,18 +29,23 @@ class AuthenticationBloc
           email: event.email,
           password: event.password,
         );
+        dev.log(name: "auth", "start authenticate");
         final Box<UserModelDomain> userBox =
             await Hive.openBox<UserModelDomain>("User");
         userModel.maybeWhen(
           success: (success) {
+        dev.log(name: "auth", "success");
+
             UserModelDomain user = success;
             userBox.put('user_data', user);
             final UserRole userRole = UserRole.setRole(user.role);
-            
+
             userBox.close;
             emit(AuthenticationDownload(role: userRole));
           },
           error: (error) {
+        dev.log(name: "auth", "error");
+
             userBox.close;
             emit(
               AuthenticationError(
@@ -49,6 +54,7 @@ class AuthenticationBloc
           },
           orElse: () {
             userBox.close;
+        dev.log(name: "auth", "error null");
 
             emit(
               const AuthenticationError(
@@ -61,10 +67,15 @@ class AuthenticationBloc
     );
     on<CheckHive>(
       (event, emit) async {
-        //TODO: вдруг поменяется роль пользователя, нужно как-то проверять 
+        //TODO: вдруг поменяется роль пользователя, нужно как-то проверять
+        dev.log(name: "auth", "start check");
         final Box<UserModelDomain> userBox =
             await Hive.openBox<UserModelDomain>("User");
         final UserModelDomain? user = userBox.get("user_data");
+        dev.log(name: "auth", userBox.toString());
+        dev.log(name: "auth", user.toString());
+        dev.log(name: "auth", "${user?.name.toString()}");
+
         if (user != null) {
           final bool check = await _iAuthRepositoryDomain.checkUser(
               email: user.login, password: user.password);

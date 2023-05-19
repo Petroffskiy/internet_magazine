@@ -37,6 +37,8 @@ class CustomBottomBarPage extends StatelessWidget {
             if (state is BottomDownload) {
               role = state.role;
               dev.log(name: "bottom bar", role.toString());
+            } else if (state is BottomError) {
+              context.router.replace(const AuthEmptyRoute());
             }
           },
           child: ClipRRect(
